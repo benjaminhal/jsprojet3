@@ -1,0 +1,284 @@
+
+  /* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/** end reset css**/
+body {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+section {
+	margin: 50px 0
+}
+
+h1{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C
+}
+
+h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+;
+}
+
+h2{
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
+}
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+
+}
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+li:hover {
+	color: #B1663C;
+}
+#introduction {
+	display: flex;
+	align-items: center;
+}
+#introduction figure {
+	flex: 1
+}
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1
+}
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+
+
+
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em;
+  padding-top: 10em;
+}
+
+
+#section-connexion {
+	width: 50%;
+  margin: auto;
+}
+#sectionconnection > * {
+  text-align: center;
+}
+#section-connexion h3{
+	margin: auto;
+  width: 20%;
+  font-size: 30px;
+  color: #1D6154;
+  align-items: center;
+}
+#section-connexion form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#section-connexion input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  cursor: pointer;
+}
+#section-connexion label {
+	margin: 2em 0 1em 0;
+  font-weight: bold;
+}
+
+#section-connexion p{
+  margin: auto;
+  width: 25%;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+#section-connexion input:invalid {
+  border: 2px solid red;
+}
+
+#section-connexion input:valid {
+  border: 1px solid black;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+.error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.error.active {
+  padding: 0.3em;
+}
+/*
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 200px;
+	text-align: center;
+	border-radius: 60px ;
+    box-shadow: none;
+    position: relative;
+    left: 114px;
+    cursor: pointer;
+}
+
+.form-nom-email{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .email-mdp{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    align-items: flex-start;
+  }
+
+  .form-column{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .section-connexion h3 {
+    color: #1D6154;
+    position: relative;
+    left: 497px;
+    font-size: 30px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    color: black;
+  }
+  input {
+  padding: 15px;
+  width: 100%;
+  border: none;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.09);
+}
+
+input#email{
+    position: relative;
+    left: 65px;
+}
+
+input#password{
+    width: 87%;
+    position: relative;
+    left: 50px;
+}
+ 
+
+.label-email{
+    position: relative;
+    top: -1em;
+    left: 75px;
+    font-weight: bold;
+}
+
+.label-mdp{
+    position: relative;
+    top: -1em;
+    left: 73px;
+    font-weight: bold;
+}
+
+
+.btn-connecter p{
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    top: -2em;
+    left: 148px;
+}
+*/
+
