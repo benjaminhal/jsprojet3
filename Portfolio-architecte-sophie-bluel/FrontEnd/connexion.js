@@ -1,27 +1,20 @@
 var form = document.getElementsByTagName("form")[0];
 var email = document.getElementById("mail");
 
-// Ce qui suit est une bidouille pour atteindre le prochain nœud Element dans le DOM
-// Attention à cette méthode, elle peut permettre de construire une boucle
-// infinie. Pour les navigateurs plus récents, on utilisera element.nextElementSibling
 var error = email;
 while ((error = error.nextSibling).nodeType != 1);
 
 // Pour respecter la spécification HTML5
-var emailRegExp =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+var emailRegExp =new RegExp("[a-z0-9._]+@([a-z0-9._)+\\.[a-z0-9._]+");
 
-// De nombreux navigateurs historiques ne supportent pas la méthode
-// addEventListener. Voici une méthode simple (il en existe d'autres)
+
 function addEvent(element, event, callback) {
   var previousEventCallBack = element["on" + event];
   element["on" + event] = function (e) {
     var output = callback(e);
 
-    // Une fonction de rappel (callback) qui renvoie `false`
-    // pour arrêter la chaîne des callback
-    // et interrompre l'exécution du callback d'événement.
-    if (output === false) return false;
+    if (output === false) 
+      return false;
 
     if (typeof previousEventCallBack === "function") {
       output = previousEventCallBack(e);
@@ -67,7 +60,6 @@ const fetchHandeler = async () =>{
             }),
             headers : {
                 "Content-Type":"application/json",
-
             },
 
         });
@@ -75,7 +67,7 @@ const fetchHandeler = async () =>{
         console.log(dataResponse);
     }catch(error){
         console.log(error);
-    }
+    }  
 };
 fetchHandeler();
 

@@ -5,20 +5,18 @@ var id = {
 }
 
 
-fetch("http://localhost:5678/api/users/login", {
+await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(id)
 }) .then(response => response.json())
 .then(data => console.log(data))
 
-const divElement = document.getElementById("portfolio");
-let btnTous = document.getElementById("btn-tous");
-let btnAppartements = document.getElementById("btn-appartements");
-let btnHT = document.getElementById("btn-h-t");
-let btnObjets = document.getElementById("btn-objets");
+const divElement = document.querySelector(".gallery");
+const filreCategories = document.getElementById("btn-filtre")
 
-const test = fetch("http://localhost:5678/api/works")
+
+const test = await fetch("http://localhost:5678/api/works")
     .then((response)=>{
         return response.json()
     })
@@ -26,51 +24,75 @@ const test = fetch("http://localhost:5678/api/works")
         console.log(result);
         for(const image of result){
             const ele =
-                document.createElement("figure")
-                ele.innerHTML = image.title;
-                divElement.appendChild(ele)
-                
-
+                document.createElement("figure");
+                ele.dataset.name =  image.category["name"];
+                ele.classList = "active"
+                var img = document.createElement("img");
+                img.src = image.imageUrl;
+                img.alt = image.title;
+                ele.appendChild(img);
+                var titre = document.createElement("figcaption");
+                titre.textContent = image.title
+                ele.appendChild(titre);
+                divElement.appendChild(ele);
+        }
+        for(const boutons of result){
+                const btn = document.createElement("button")
+                btn.id = boutons.category["name"]
+                btn.type = "button"
+                btn.innerHTML = boutons.category["name"]
+                filreCategories.appendChild(btn)
         }
 
-    })
+    });
+/*
+let filtreAppart = document.querySelectorAll(".btn-Objets")
+console.log(filtreAppart)
 
+for(let i = 0; i < filtreAppart.length; i++ ){
+    filtreAppart[i].addEventListener("click", event =>{
+        event.preventDefault();
+        console.log(event);
+    } )
 
-const appart = image.categorie.filter((catego)=> catego === "Appartements");
-const hotelResto = image.categorie.filter((catego) => catego === "Hotels & retaurants");
-const objet = image.categorie.filter((catego)=> catego ==="Objets");
-/* 
-const monSet = new set()
-monSet.add(divElement)
-        btnTous.addEventListener("click",function(){
-            for(const image of result){
-                if(btnTous === "click"){
-                    monSet.delet(ele)
-                    monSet.appendChild(appart)
-                }
-                else{
-                    break
-                }
-        })
-        btnAppartements.addEventListener("click",function(){
-            for (const image of result){
-                if(btnAppartements === "click"){
-                    monSet.delet(ele)
-                    monSet.appendChild(hotelResto)
-    
-                }
+    img = img.filter(el => el.i.category["name"] !== filtreAppart)
+    console.log(img)
+
+    localStorage.setItem("image", JSON.stringify(img));
+
+    window.location.href ="index.html";
+
+}
+*/
+let btnFiltre = document.querySelectorAll("#btn-filtre button");
+console.log(btnFiltre)
+
+for (let filter of btnFiltre){
+    filter.addEventListener("click", async function(){
+        let choix = this.id
+
+        let figures = document.querySelectorAll(".gallery figure");
+        for(let figure of figures){
+            figure.classList.replace("active","inactive");
+
+            if(choix in figure.dataset || choix === "Tout" ){
+                figure.classList.replace("inactive", "active");
             }
-        btnAppartements.addEventListener("click",function(){
-            for (const image of result){
-                if(btnAppartements === "click"){
-                    monSet.delet(ele)
-                    monSet.appendChild(objet)
-    
-                }
-            }
-            console.log(monSet)
-        })*/
 
+        };
+    });
+};
+
+
+
+/*const appart = image.categorie["name"].filter((catego)=> catego === "Appartements");
+const hotelResto = image.categorie["name"].filter((catego) => catego === "Hotels & retaurants");
+const objet = image.categorie["name"].filter((catego)=> catego ==="Objets");
+
+
+
+
+       
         
 const filtre = fetch("http://localhost:5678/api/works").then(filtre => filtre.json());
 const monSet = new set()
@@ -119,11 +141,3 @@ var email = document.getElementById("email");
 }
 genererPieces(image);*/
 
-const modalContainer = document.querySelector(".modal-container");
-const modalTriggers = document.querySelectorAll(".modal-trigger");
-
-modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
-
-function toggleModal(){
-  modalContainer.classList.toggle("active")
-}

@@ -37,7 +37,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	background: #f1f1f1;
+	background: white;
 }
 ol, ul {
 	list-style: none;
@@ -148,6 +148,11 @@ li:hover {
 	width: 100%;
 }
 
+.gallery .active{
+	width: 100%;
+
+}
+
 /*contact*/
 
 #contact {
@@ -203,7 +208,7 @@ footer nav ul {
 
 /* filtres*/
 
-.btn-filtre{
+#btn-filtre{
 	display: flex;
 	flex-wrap: wrap;
 	display: flex;
@@ -214,7 +219,7 @@ footer nav ul {
     padding: 10px;
 }
 
-.btn-objets{
+#Tous{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -231,12 +236,9 @@ footer nav ul {
     cursor: pointer;
 }
 
-.btn-objets:hover{
-	background-color: #1D6154;
-	color: white;
-}
+	
 
-.btn-appartements{
+#Objets{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -253,11 +255,12 @@ footer nav ul {
     cursor: pointer;
 }
 
-.btn-appartements:hover{
+#Objets:hover{
 	background-color: #1D6154;
 	color: white;
 }
-.btn-tous{
+
+#Appartements{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -274,12 +277,11 @@ footer nav ul {
     cursor: pointer;
 }
 
-.btn-tous:hover{
+#Appartements:hover{
 	background-color: #1D6154;
 	color: white;
 }
-
-.btn-h-t{
+#Tous{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -296,11 +298,39 @@ footer nav ul {
     cursor: pointer;
 }
 
-.btn-h-t:hover{
+#Tous:hover{
 	background-color: #1D6154;
 	color: white;
 }
 
+#btn-Hotels.&.restaurants{
+	border: 2px solid #1D6154;
+    position: relative;
+    color: #1D6154;
+    background-color: transparent;
+    width: 142px;
+    height: 25px;
+    margin: 10px;
+    padding: 3px 0px 2px 0px;
+    gap: 10px;
+    font-weight: bolder;
+    font-size: 12px;
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#btn-Hotels.&.restaurants:hover{
+	background-color: #1D6154;
+	color: white;
+}
+
+
+.gallery .inactive{
+	width: 0;
+	padding: 0;
+	transition: width .3s;
+}
 
 
 
@@ -316,14 +346,13 @@ footer nav ul {
 	min-width: 150px;
 	cursor: pointer;
   }
-  
   .modal-container {
 	/* display: none; */
 	visibility: hidden;
 	position: fixed;
 	top: 0;
 	width: 100vw;
-	height: 100vh;
+	height: 125vh;
 	transition: visibility 0.4s;
   }
   .modal-container.active {
@@ -346,14 +375,13 @@ footer nav ul {
   
   .modal {
 	opacity: 0;
-	width: 45%;
-	height: 515px;
+	width: 41%;
+	height: 525px;
 	padding: 30px;
 	background: #fff;
 	border-radius: 5px;
 	max-width: calc(100vw - 20px);
     max-height: calc(104vh - 20px);
-    overflow: auto;
 	position: absolute;
 	top: 40%;
 	left: 50%;
@@ -413,4 +441,13 @@ footer nav ul {
 
 .cta{
 	flex: 1;
+}
+
+.fa-solid, .fas {
+    right: 22px;
+    font-weight: 900;
+    position: relative;
+    color: white;
+    background-color: black;
+    top: -6em;
 }
