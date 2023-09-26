@@ -1,11 +1,10 @@
 var id = {
     email : "sophie.bluel@test.tld",
     password : "S0phie"
-
 }
 
 
-await fetch("http://localhost:5678/api/users/login", {
+await fetch("http://localhost:5678/api/users/login",{
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(id)
@@ -13,38 +12,45 @@ await fetch("http://localhost:5678/api/users/login", {
 .then(data => console.log(data))
 
 const divElement = document.querySelector(".gallery");
-const filreCategories = document.getElementById("btn-filtre")
+const filtreCategories = document.getElementById("btn-filtre")
 
 
-const test = await fetch("http://localhost:5678/api/works")
+const affichage = await fetch("http://localhost:5678/api/works")
     .then((response)=>{
         return response.json()
     })
     .then((result)=>{
         console.log(result);
         for(const image of result){
-            const ele =
+            const fig =
                 document.createElement("figure");
-                ele.dataset.name =  image.category["name"];
-                ele.classList = "active"
+                fig.dataset.name = image.category["name"];
+                fig.classList = "active";
                 var img = document.createElement("img");
                 img.src = image.imageUrl;
                 img.alt = image.title;
                 ele.appendChild(img);
                 var titre = document.createElement("figcaption");
-                titre.textContent = image.title
+                titre.textContent = image.title;
                 ele.appendChild(titre);
                 divElement.appendChild(ele);
         }
         for(const boutons of result){
-                const btn = document.createElement("button")
+                const btn = document.createElement("button");
                 btn.id = boutons.category["name"]
-                btn.type = "button"
-                btn.innerHTML = boutons.category["name"]
-                filreCategories.appendChild(btn)
+                btn.type = "button";
+                btn.innerHTML = boutons.category["name"];
+                filtreCategories.appendChild(btn);
         }
 
     });
+
+function onlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
+};
+
+
+
 /*
 let filtreAppart = document.querySelectorAll(".btn-Objets")
 console.log(filtreAppart)
@@ -64,22 +70,28 @@ for(let i = 0; i < filtreAppart.length; i++ ){
 
 }
 */
-let btnFiltre = document.querySelectorAll("#btn-filtre button");
+
+let btnFiltre =  document.querySelectorAll("#btn-filtre button");
 console.log(btnFiltre)
+
 
 for (let filter of btnFiltre){
     filter.addEventListener("click", async function(){
         let choix = this.id
 
         let figures = document.querySelectorAll(".gallery figure");
+        
+        
         for(let figure of figures){
             figure.classList.replace("active","inactive");
-
-            if(choix in figure.dataset || choix === "Tout" ){
-                figure.classList.replace("inactive", "active");
+            
+            if(choix === figure.dataset.name || choix === "Tous" ){
+                figure.classList.remove("inactive", "active");
+                
             }
+            
 
-        };
+        }; S
     });
 };
 

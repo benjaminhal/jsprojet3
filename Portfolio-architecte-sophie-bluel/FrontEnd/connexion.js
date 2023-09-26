@@ -1,4 +1,4 @@
-var form = document.getElementsByTagName("form")[0];
+/*var form = document.getElementsByTagName("form")[0];
 var email = document.getElementById("mail");
 
 var error = email;
@@ -71,6 +71,33 @@ const fetchHandeler = async () =>{
 };
 fetchHandeler();
 
+*/
+
+var id = {
+  email : "sophie.bluel@test.tld",
+  password : "S0phie"
+}
 
 
+const connexion = await fetch("http://localhost:5678/api/users/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(id)
+}) .then(response => response.json())
+.then(data => console.log(data))
 
+let form = document.querySelector("formulaire");
+let inputEmail = document.querySelector("#email");
+let inputMdp = document.querySelector("#password");
+let envoyer = document.querySelector("#cta");
+
+let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+
+envoyer.addEventListener("click",function(e){
+  if (emailRegExp.test(inputEmail.value) === false || inputMdp.trim() ==="") {
+    let erreur = document.querySelector(".error");
+    erreur.innerText = "email ou mot de passe incorect";
+    e.preventDefault();
+  }
+  }
+);

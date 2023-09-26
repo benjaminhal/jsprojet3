@@ -27,11 +27,11 @@
     <main>
         <section id="section-connexion">
             <h3>Log in</h3>
-            <form method="get" action="">
+            <form method="post" action="" id="formulaire">
                 <!---<div class="email-mdp">
                     <div class="form-colum">--->
                         <label for="email" class="label-email">Email</label>
-                        <input type="email" name="email" id="email" required pattern="email">
+                        <input type="email" name="email" id="email" >
                     <!---</div>
                     <div class="mdp">--->
                         <label for="mot-de-passe" class="label-mdp"> Mot de passe</label>
@@ -39,7 +39,7 @@
                         
                     <!---</div>
                     <div class="btn-connecter">-->
-                        <input type="submit" value="Se connecter" class="cta">
+                        <button type="submit" value="" id="cta">Se connecter</button>
                         <p>Mot de passe oublié</p>
                         <span class="error" aria-live="polite"></span>
                 <!----- </div>
