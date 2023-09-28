@@ -73,31 +73,35 @@ fetchHandeler();
 
 */
 
-var id = {
-  email : "sophie.bluel@test.tld",
-  password : "S0phie"
-}
 
 
-const connexion = await fetch("http://localhost:5678/api/users/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(id)
-}) .then(response => response.json())
-.then(data => console.log(data))
+
+
 
 let form = document.querySelector("formulaire");
 let inputEmail = document.querySelector("#email");
 let inputMdp = document.querySelector("#password");
 let envoyer = document.querySelector("#cta");
 
-let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+var id = {
+  email : "sophie.bluel@test.tld",
+  password : "S0phie"
+}
 
-envoyer.addEventListener("click",function(e){
-  if (emailRegExp.test(inputEmail.value) === false || inputMdp.trim() ==="") {
+envoyer.addEventListener("click",async function(e){
+  const connexion = await fetch("http://localhost:5678/api/users/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(id)
+}) .then(response => response.json())
+.then(data => console.log(data))
+  if (inputEmail.value != id.email && inputMdp.value != id.password) {
     let erreur = document.querySelector(".error");
     erreur.innerText = "email ou mot de passe incorect";
     e.preventDefault();
+  }
+  else{
+    window.location.replace("http://127.0.0.1:5500/Portfolio-architecte-sophie-bluel/FrontEnd/index.html")
   }
   }
 );

@@ -1,8 +1,32 @@
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
+const modale = document.querySelector(".image-modal")
+
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 function toggleModal(){
   modalContainer.classList.toggle("active")
 }
+
+const affichageModal = fetch("http://localhost:5678/api/works")
+    .then((response)=>{
+        return response.json()
+    })
+    .then((result)=>{
+        console.log(result);
+        for(const image of result){
+          const figure = 
+          document.createElement("figure")
+          const fig = document.createElement("i");
+          fig.classList = "fa-solid fa-trash-can"
+          const img = document.createElement("img")
+          img.src = image.imageUrl;
+          img.alt = image.title;
+          figure.appendChild(img)
+          figure.appendChild(fig)
+          modale.appendChild(figure);
+        }
+       
+      
+    });

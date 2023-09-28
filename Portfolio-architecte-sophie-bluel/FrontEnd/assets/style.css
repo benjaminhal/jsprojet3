@@ -238,7 +238,7 @@ footer nav ul {
 	
 	
 
-#Objets{
+.Objets{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -255,12 +255,12 @@ footer nav ul {
     cursor: pointer;
 }
 
-#Objets:hover{
+.Objets:hover{
 	background-color: #1D6154;
 	color: white;
 }
 
-#Appartements{
+.Appartements{
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -277,7 +277,7 @@ footer nav ul {
     cursor: pointer;
 }
 
-#Appartements:hover{
+.Appartements:hover{
 	background-color: #1D6154;
 	color: white;
 }
@@ -303,7 +303,7 @@ footer nav ul {
 	color: white;
 }
 
-#btn-Hotels.&.restaurants{
+.Hotels {
 	border: 2px solid #1D6154;
     position: relative;
     color: #1D6154;
@@ -320,7 +320,7 @@ footer nav ul {
     cursor: pointer;
 }
 
-#btn-Hotels.&.restaurants:hover{
+.Hotels:hover{
 	background-color: #1D6154;
 	color: white;
 }
@@ -419,10 +419,20 @@ footer nav ul {
     color: black;
     font-weight: 500;
   }
-  .modal img {
+  .figure img {
 	height: 100px;
 	width: 76px;
+	position: relative;
+	top: 6em;
   }
+
+  .fa-solid, .fas {
+    right: 22px;
+    font-weight: 900;
+    position: relative;
+    color: black;
+    top: -5em;
+}
 
   input.ajoutPhoto {
     width: 46%;
@@ -431,7 +441,7 @@ footer nav ul {
 	cursor: pointer;
 }
 
-.modal a {
+.btn-ajouter {
 	border-top: 1px solid black;
     margin: 0px;
     color: black;
@@ -442,13 +452,7 @@ footer nav ul {
 
 .cta{
 	flex: 1;
+	border-top: 1px solid black;
+    padding: 23px;
 }
 
-.fa-solid, .fas {
-    right: 22px;
-    font-weight: 900;
-    position: relative;
-    color: white;
-    background-color: black;
-    top: -6em;
-}
