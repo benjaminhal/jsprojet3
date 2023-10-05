@@ -356,10 +356,38 @@ footer nav ul {
 	height: 125vh;
 	transition: visibility 0.4s;
   }
+
+  .modal-container2 {
+	/* display: none; */
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 125vh;
+	transition: visibility 0.4s;
+  }
+
   .modal-container.active {
 	/* display: block; */
 	visibility: visible;
   }
+
+  .modal-container2.active {
+	/* display: block; */
+	visibility: visible;
+  }
+
+  .modal-container.innactive {
+	/* display: block; */
+	visibility: none;
+  }
+
+  .modal-container2.innactive {
+	/* display: block; */
+	visibility: none;
+  }
+
+
   
   .overlay {
 	opacity: 0;
@@ -373,8 +401,30 @@ footer nav ul {
 	opacity: 1;
 	transition: opacity 0.4s ease-out;
   }
+
+  .modal-container2.active .overlay {
+	opacity: 1;
+	transition: opacity 0.4s ease-out;
+  }
   
   .modal {
+	opacity: 0;
+	width: 41%;
+	height: 525px;
+	padding: 30px;
+	background: #fff;
+	border-radius: 5px;
+	max-width: calc(100vw - 20px);
+    max-height: calc(104vh - 20px);
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% - 50px));
+	transition: opacity 0.4s ease-out,
+	transform 0.4s ease-out;
+  }
+
+  .modal2 {
 	opacity: 0;
 	width: 41%;
 	height: 525px;
@@ -397,6 +447,13 @@ footer nav ul {
 	transition: opacity 0.4s 0.2s ease-out,
 	transform 0.4s 0.2s ease-out;
   }
+
+  .modal-container2.active .modal2 {
+	opacity: 1;
+	transform: translate(-50%, -50%);
+	transition: opacity 0.4s 0.2s ease-out,
+	transform 0.4s 0.2s ease-out;
+  }
   
   .close-modal {
 	padding: 8px 10px;
@@ -411,6 +468,21 @@ footer nav ul {
 	font-weight: bold;
 	background-color: transparent;
   }
+
+  .close-modal2 {
+	padding: 8px 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	color: black;
+	font-weight: bold;
+	background-color: transparent;
+  }
+
   .modal h1 {
 	margin: 15px;
     width: 77%;
@@ -419,22 +491,125 @@ footer nav ul {
     color: black;
     font-weight: 500;
   }
-  .figure img {
+
+  .modal2 h1 {
+	margin: 15px;
+    width: 77%;
+    position: relative;
+    left: 42px;
+    color: black;
+    font-weight: 500;
+  }
+  .image-modal img {
 	height: 100px;
-	width: 76px;
-	position: relative;
-	top: 6em;
+    width: 76px;
+    position: relative;
+    top: 6em;
   }
 
+  .image-modal figure{
+	position: relative;
+    top: -5em;
+    display: inline-flex;
+  }
   .fa-solid, .fas {
-    right: 22px;
+	width: 100%;
+    height: 17px;
+	font-weight: 900;
+    position: relative;
+    top: 6.5em;
+    right: 16px;
     font-weight: 900;
     position: relative;
-    color: black;
-    top: -5em;
+    color: white;
+	background-color: black;
+	cursor: pointer;
+   
 }
 
-  input.ajoutPhoto {
+.ajout{
+	background-color: rgba(232, 241, 246, 1);
+	height: 169px;
+}
+
+i.fa-regular.fa-image{
+	color: rgba(185, 197, 204, 1);
+	background-color: transparent;
+	font-size: 62px;
+
+}
+
+.btn-ajout{
+	background-color: rgba(185, 197, 204, 1);
+	border-radius: 50px;
+	border-color: rgba(185, 197, 204, 1);
+	color: rgba(48, 102, 133, 1);
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width: 40%;
+	height: 36px;
+	position: relative;
+	top: -7.5em;
+}
+.modal2 {
+	opacity: 0;
+	width: 41%;
+	height: 525px;
+	padding: 30px;
+	background: #fff;
+	border-radius: 5px;
+	max-width: calc(100vw - 20px);
+    max-height: calc(104vh - 20px);
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% - 50px));
+	transition: opacity 0.4s ease-out,
+	transform 0.4s ease-out;
+  }
+
+.modal2 h1{
+	margin: 15px;
+    width: 77%;
+    position: relative;
+    left: 105px;
+    color: black;
+    font-weight: 500;
+  }
+
+.retour{
+	position: absolute;
+    top: 16px;
+	background-color: transparent;
+	border: transparent;
+}
+
+
+
+
+.fa-arrow-left{
+	color: black;
+	background-color: transparent;
+    top: 0em;
+    left: 0px;
+    font-size: 20px;
+}
+.ajout p{
+	font-size: 10px;
+	position: relative;
+    top: -9em;
+    left: 148px;
+}
+
+.image-ajout{
+	height: 200px;
+	position: relative;
+	left: 160px;
+    top: 1em;
+}
+
+input.ajoutPhoto {
     width: 46%;
     margin: 90px;
     border: 1px;
@@ -450,9 +625,58 @@ footer nav ul {
     text-decoration: none;
 }
 
+.label-email{
+	size: 14px;
+    font-weight: bold;
+    margin: 10px;
+}
+.label-catgorie{
+	size: 14px;
+    font-weight: bold;
+    margin: 10px;
+
+}
+
+.valider{
+	border-top: 0.5px solid grey;
+    margin-top: 23px;
+}
+
+
+
+#cta{
+	color: white;
+    background-color: rgba(167, 167, 167, 1);
+    border-radius: 50px;
+    border-color: transparent;
+    width: 50%;
+	margin-top: 25px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#titre{
+	width: 100%;
+    height: 51px;
+    border-color: transparent;
+    box-shadow: 0 0 20px #0000002e;
+    margin: 10px;
+}
+
+.select-categorie{
+	width: 100%;
+    height: 51px;
+    border-color: transparent;
+    box-shadow: 0 0 20px #0000002e;
+    margin: 10px;
+
+}
+
 .cta{
 	flex: 1;
 	border-top: 1px solid black;
     padding: 23px;
+	cursor: pointer;
 }
 

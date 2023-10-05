@@ -1,4 +1,6 @@
 const modalContainer = document.querySelector(".modal-container");
+const modalContainer2 = document.querySelector(".modal-container2");
+
 const modalTriggers = document.querySelectorAll(".modal-trigger");
 const modale = document.querySelector(".image-modal")
 
@@ -30,3 +32,26 @@ const affichageModal = fetch("http://localhost:5678/api/works")
        
       
     });
+
+const modifier = document.querySelector(".ajoutPhoto")
+
+modifier.addEventListener("click",function(){
+  modalContainer.classList.remove("active")
+  modalContainer2.classList.toggle("active")
+});
+
+const fermer = document.querySelector(".close-modal2")
+
+fermer.addEventListener("click",function(){
+  modalContainer2.classList.remove("active")
+  modalContainer.classList.remove("active")
+
+});
+
+const retour = document.querySelector(".retour");
+
+retour.addEventListener("click",function(){
+  modalContainer2.classList.remove("active")
+  modalContainer.classList.toggle("active")
+
+});
