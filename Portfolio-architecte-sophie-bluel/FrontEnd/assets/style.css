@@ -680,3 +680,36 @@ input.ajoutPhoto {
 	cursor: pointer;
 }
 
+.bar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 59px;
+	background-color: black;
+	gap: 20px;
+}
+
+.bar p {
+	color: white;
+	font-size: 16px;
+	cursor: default;
+}
+
+.bar button {
+	width: 216px;
+	height: 38px;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 60px;
+	border: none;
+	cursor: pointer;
+}
+
+
+.bar i {
+	color: white;
+	margin-right: 5px;
+}
+

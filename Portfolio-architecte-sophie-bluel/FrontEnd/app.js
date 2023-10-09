@@ -33,6 +33,18 @@ const affichageModal = fetch("http://localhost:5678/api/works")
       
     });
 
+    const supprimer = document.querySelector(".fa-solid fa-trash-can");
+    const imageSuppr = document.querySelectorAll(".image-modal figure");
+    const imageS = document.querySelectorAll(".image-modal img");
+    
+    
+    supprimer.addEventListener("click",function(){
+      for(let figure of imageSuppr){
+        figure.remove()
+      }
+      
+    });
+
 const modifier = document.querySelector(".ajoutPhoto")
 
 modifier.addEventListener("click",function(){
@@ -55,3 +67,9 @@ retour.addEventListener("click",function(){
   modalContainer.classList.toggle("active")
 
 });
+
+
+
+
+
+
