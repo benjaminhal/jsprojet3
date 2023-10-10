@@ -103,8 +103,18 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav a {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
 li:hover {
 	color: #B1663C;
+	cursor: pointer;
+}
+nav a:hover {
+	color: #B1663C;
+	cursor: pointer;
 }
 #introduction {
 	display: flex;
@@ -337,6 +347,7 @@ footer nav ul {
 
 
 .modal-btn {
+	display: none;
 	border: none;
 	background-color: transparent;
 	font-size: 18px;
@@ -630,7 +641,7 @@ input.ajoutPhoto {
     font-weight: bold;
     margin: 10px;
 }
-.label-catgorie{
+#label-catgorie{
 	size: 14px;
     font-weight: bold;
     margin: 10px;
@@ -664,7 +675,7 @@ input.ajoutPhoto {
     margin: 10px;
 }
 
-.select-categorie{
+#select-categorie{
 	width: 100%;
     height: 51px;
     border-color: transparent;
@@ -681,7 +692,7 @@ input.ajoutPhoto {
 }
 
 .bar {
-	display: flex;
+	display: none;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -713,3 +724,9 @@ input.ajoutPhoto {
 	margin-right: 5px;
 }
 
+.image-ajout img{
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+
+}

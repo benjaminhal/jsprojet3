@@ -25,7 +25,8 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="connexion.html"></a>login</li>
+			<li id="login"><a href="connexion.html">login</a></li>
+			<li id="logout"><a href="connexion.html">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -76,11 +77,11 @@
 					<p>jpg. png : 4mo max</p>
 			  </div>
 				<div>
-					<form method="post" action="" id="formulaire">
-							<label for="titre" class="label-email">Titre</label>
+					<form method="post" action="" id="formulaire-ajout">
+							<label for="titre" id="titre">Titre</label>
 							<input type="text" name="titre" id="titre" required >
-							<label for="categories" class="label-categorie">Catégorie</label>
-							<select type="categorie" class="select-categorie">
+							<label for="categories" id="label-categorie">Catégorie</label>
+							<select type="categorie" id="select-categorie">
 								<option value=""></option>
 								<option valeur="objet">Objets</option>
 								<option valeur="appartement">Appartements</option>
