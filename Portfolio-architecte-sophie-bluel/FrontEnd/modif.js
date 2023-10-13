@@ -109,6 +109,8 @@ const affichageModal = fetch("http://localhost:5678/api/works")
           fig.id = image.id
           fig.addEventListener("click",function(){
             console.log("click"+ this.id)
+            deleteElementById(this.id);
+
           })
           const img = document.createElement("img")
           img.src = image.imageUrl;
