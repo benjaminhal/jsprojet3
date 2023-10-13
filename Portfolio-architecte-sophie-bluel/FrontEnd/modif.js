@@ -1,16 +1,3 @@
-var id = {
-    email : "sophie.bluel@test.tld",
-    password : "S0phie"
-}
-
-
-await fetch("http://localhost:5678/api/users/login",{
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(id)
-}) .then(response => response.json())
-.then(data => console.log(data))
-
 
 /*AJOUT DES IMAGES */
 const divElement = document.querySelector(".gallery");
@@ -45,7 +32,7 @@ const affichage = await fetch("http://localhost:5678/api/works")
 /*AJOUT DES FILTRES*/
 
 function affichageFiltres(){
-    fetch("http://localhost:5678/api/categories")
+ fetch("http://localhost:5678/api/categories")
     .then((response)=>{
         return response.json()
     })
@@ -118,7 +105,11 @@ const affichageModal = fetch("http://localhost:5678/api/works")
           const figure = 
           document.createElement("figure")
           const fig = document.createElement("i");
-          fig.classList = "fa-solid fa-trash-can"
+          fig.classList = "fa-solid fa-trash-can";
+          fig.id = image.id
+          fig.addEventListener("click",function(){
+            console.log("click"+ this.id)
+          })
           const img = document.createElement("img")
           img.src = image.imageUrl;
           img.alt = image.title;
@@ -156,29 +147,47 @@ retour.addEventListener("click",function(){
 function adminMode(){
     const login = document.getElementById("login");
     login.style.display = "none";
+    const logout = document.getElementById("logout")
+    logout.style.display = "flex"
     const bar = document.querySelector(".bar");
-    bar.style.display = "flex"
-    const BtnModifier = document.querySelectorAll(".modal-btn");
-    BtnModifier.style.display = "flex"
+    bar.style.display = "flex";
+    const BtnModifier = document.querySelector(".modal-btn");
+    BtnModifier.style.display = "flex";
     const filterss = document.getElementById("btn-filtre");
     filterss.style.display = "none";
+    const btnTous = document.getElementById("Tous");
+    btnTous.style.display = "none";
 };
 const token = localStorage.getItem("token");
-if (token) {
+console.log(token)
+if (token == null) {
     affichageFiltres();
   } else{
     adminMode();
   };
 
+  //DECONEXion
+  const loginButton = document.getElementById("login");
+  const logoutButton = document.getElementById("logout") 
+
+  logoutButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    removeToken();
+    window.location.assign("index.html");
+  });
+
+  function removeToken() {
+    // Supprime le token du localStorage
+    localStorage.removeItem("token");
+  };
 /*AJOUT D'UN PROJET*/
 
 const formulaireAjout = document.getElementById("cta");
-if (formulaireAjout) {
-    formulaireAjout.addEventListener('click', function (e) {
+    formulaireAjout.addEventListener("click", function (e) {
         e.preventDefault();
         ajoutProjet();
     });
-}
+
 
 function ajoutProjet() {
     const image = document.getElementById("input-ajout").files[0];
@@ -203,26 +212,20 @@ function ajoutProjet() {
         })
             .then(response => {
                 if (localStorage.getItem("token")) {
-                    alert("Projet ajouté avec succès !");
+                    alert("Projet ajouté");
                     return response.json();
                 }
             })
             .then(projet => {
                 if (projet) {
                     console.log(projet);
-                    //Mettre à jour le tableau globale
                     divElement.push(projet);
-                    // Mettre à jout la modale : ajouter le nouveau projet sur la modale 
-                    const galleryModaleImg = document.querySelector(".gallery img");
-                    const figureModale = createImgModale(projet);
+                    const galleryModaleImg = document.querySelector(".image-modal");
+                    const figureModale = creerImgModale(projet);
                     galleryModaleImg.appendChild(figureModale);
 
-                    // Mettre à jour la page index avec l'ajout du projet sur la page index 
-                    const gallery = document.querySelector(".gallery");
-                    const figureIndex = createFigure(projet);
-                    gallery.appendChild(figureIndex);
-
-                    returnButton.click();
+                    const figureIndex = creerImgGallery(projet);
+                    divElement.appendChild(figureIndex);
                 }
             })
             .catch(error => {
@@ -230,31 +233,132 @@ function ajoutProjet() {
                 alert("Une erreur est survenue lors de l'ajout du projet !")
             });
     }
-}
+};
 
-function createImgModale(projet) {
-    const figure = document.createElement("figure");
-    figure.dataset.name = image.category["id"];
-    figure.classList = "active";
-    var img = document.createElement("img");
-    img.src = projet.imageUrl;
-    img.alt = projet.title
+async function creerImgModale(projet) {
+    const figure = document.createElement("figure")
     const fig = document.createElement("i");
     fig.classList = "fa-solid fa-trash-can"
+    const img = document.createElement("img")
+    img.src = projet.imageUrl;
+    img.alt = projet.title;
     figure.appendChild(img)
     figure.appendChild(fig)
     modale.appendChild(figure);
-    return figure;}
+    return figure;
+};
 
+async function creerImgGallery(projet){
+    const fig = document.createElement("figure");
+    fig.dataset.name = projet.category["id"];
+    fig.classList = "active";
+    var img = document.createElement("img");
+    img.src = projet.imageUrl;
+    img.alt = projet.title;
+    fig.appendChild(img);
+    var titre = document.createElement("figcaption");
+    titre.textContent = projet.title;
+    fig.appendChild(titre);
+    divElement.appendChild(fig);
 
+}
+
+const btnAjout = document.querySelector(".btn-ajout")
+const drop = document.querySelector(".image-ajout")
+
+function visualisationModal(){
+    btnAjout.addEventListener("click", () => {
+        const visualisationPhoto = new FileReader();
+        visualisationPhoto.readAsDataURL(btnAjout.files[0]);
+
+        visualisationPhoto.addEventListener("load", () => {
+        const nonConforme = document.querySelector(".nonConforme");
+        var fileInput = document.getElementById("photo");
+        var file = fileInput.files[0];
+
+        if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            nonConforme.innerText = "Utilisez une photo format jpg ou png.";
+        } else if (file.size > 4 * 1024 * 1024) {
+            nonConforme.innerText =
+            "utilisez une photo de moins de 4 mo.";
+        } else {
+            nonConforme.innerText = "";
+            const url = photoPreview.result;
+            img = new Image();
+            img.classList.add("visualisationImg");
+            img.src = url;
+            drop.appendChild(img);
+            return img;
+        }
+        });
+    });
+};
+
+const titreAjout = document.querySelector("titre")
+const categorieSelect = document.querySelector("select-categorie")
+
+function ChangementButton() {
+    const titreAjout = btnAjout.files;
+    const nom = titreAjout.value.trim() !== "";
+    const categorieChoisi = categorieSelect.value !== "";
+
+    if (
+      titreAjout.length > 0 &&
+      nom &&
+      categorieChoisi
+    ) {
+      formulaireAjout.classList = "buttonFonctionnel";
+    } else {
+      formulaireAjout.id = "";
+    }
+};
+
+formulaireAjout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (formulaireAjout.id === "buttonFonctionnel") {
+      e.preventDefault();
+      try {
+        await postData();
+        img.remove();
+        titreAjout.value = "";
+        categorieSelect.selectedIndex = 0;
+        formulaireAjout.removeAttribute("id");
+        divElement.innerHTML = "";
+        await createImgGallery();
+      } catch (error) {
+        console.log("Erreur", error);
+      }
+    }
+});
+
+async function postDatas() {
+    return new Promise((resolve) => {
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("image", uploadPhotoButton.files[0]);
+      formData.append("title", nameInput.value);
+      formData.append("category", categoryId);
+
+      fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }).then((response) => {
+        if (response.status === 201) {
+          resolve();
+        }
+      });
+    });
+  }
 /*SUPPRIMER DES PROJETS*/
-const supprimer = document.createElement("i");
+const supprimer = document.querySelectorAll(".fa-trash-can");
 const imageSuppr = document.querySelectorAll(".image-modal figure");
 const figGallery = document.querySelectorAll(".gallery figure")
 const imageS = document.querySelectorAll(".image-modal img");
 
     async function deleteElementById(id) {
-        supprimer.addEventListener("click", function(){
             const token = localStorage.getItem("token");
             const response = fetch(`http://localhost:5678/api/works/${id}`, {
                 method: "DELETE",
@@ -262,7 +366,7 @@ const imageS = document.querySelectorAll(".image-modal img");
                 Authorization: `Bearer ${token}`,
                 },
             });
-            if (response.ok) {
+            if (response) {
                 const elementSupprime = document.getElementById(figGallery + id);
                 const elementSupprimeModal = document.getElementById( imageSuppr + id);
                 if (elementSupprime && elementSupprimeModal) {
@@ -270,7 +374,13 @@ const imageS = document.querySelectorAll(".image-modal img");
                 elementSupprimeModal.parentNode.removeChild(elementSupprimeModal);
                 }
             }
-        })
+        };
+    
+for(poubelles in supprimer){
+    poubelles.addEventListener("click", function () {
+       
+        deleteElementById(id);
+      })
     };
 
 

@@ -19,19 +19,16 @@ envoyer.addEventListener("click",async function(e){
     const token = data.token;
     localStorage.setItem("token", token);
     console.log(data)
-
-    if (data.message) {
+    if (data.message || data.error){
       let erreur = document.querySelector(".error");
       erreur.innerText = "email ou mot de passe incorect";
       console.log(id);
     }
     else{
-        console.log("LogAdmin OK");
+        console.log("connecté");
         console.log(id);
-        // stockage du token et userid dans le stockage local
         localStorage.setItem("token", data.token);
         localStorage.setItem('userId', data.userId);
-        //Redirection index.html
         window.location.href = "index.html";
     }
   })
