@@ -31,8 +31,7 @@ const affichage = await fetch("http://localhost:5678/api/works")
 
 /*AJOUT DES FILTRES*/
 
-function affichageFiltres(){
- fetch("http://localhost:5678/api/categories")
+ const filtre = await fetch("http://localhost:5678/api/categories")
     .then((response)=>{
         return response.json()
     })
@@ -48,11 +47,7 @@ function affichageFiltres(){
 
         }
 
-    })
-};
-
-
-
+    });
 
 
 let btnFiltre =  document.querySelectorAll("#btn-filtre button");
@@ -107,6 +102,7 @@ const affichageModal = fetch("http://localhost:5678/api/works")
           const fig = document.createElement("i");
           fig.classList = "fa-solid fa-trash-can";
           fig.id = image.id
+          /*POUR SUPPRIMER UNE IMAGE DE LA MODALE ET DE L'API*/
           fig.addEventListener("click",function(){
             console.log("click"+ this.id)
             deleteElementById(this.id);
@@ -118,6 +114,22 @@ const affichageModal = fetch("http://localhost:5678/api/works")
           figure.appendChild(img)
           figure.appendChild(fig)
           modale.appendChild(figure);
+        }
+});
+
+const formModale2 = document.getElementById("select-categorie")
+
+const affichageModal2 = fetch("http://localhost:5678/api/categories")
+    .then((response)=>{
+        return response.json()
+    })
+    .then((result)=>{
+        console.log(result);
+        for(const catego of result){
+          const option = document.createElement("option")
+          option.innerHTML = catego.name;
+          option.id = catego.id;
+          formModale2.appendChild(option);
         }
 });
 
@@ -137,6 +149,14 @@ fermer.addEventListener("click",function(){
 
 });
 
+function closeModal(){
+  fermer.addEventListener("click",function(){
+    modalContainer2.classList.remove("active")
+    modalContainer.classList.remove("active")
+
+  })
+};
+
 const retour = document.querySelector(".retour");
 
 retour.addEventListener("click",function(){
@@ -146,6 +166,7 @@ retour.addEventListener("click",function(){
 });
 
 /*FONCTION ADMIN*/
+
 function adminMode(){
     const login = document.getElementById("login");
     login.style.display = "none";
@@ -162,11 +183,9 @@ function adminMode(){
 };
 const token = localStorage.getItem("token");
 console.log(token)
-if (token == null) {
-    affichageFiltres();
-  } else{
+if (token != null) {
     adminMode();
-  };
+  } 
 
   //DECONEXion
   const loginButton = document.getElementById("login");
@@ -184,41 +203,73 @@ if (token == null) {
   };
 /*AJOUT D'UN PROJET*/
 
-const formulaireAjout = document.getElementById("cta");
+const formulaireAjout = document.querySelector(".cta2");
     formulaireAjout.addEventListener("click", function (e) {
         e.preventDefault();
         ajoutProjet();
     });
 
+const image = document.querySelector(".input-ajout").files[0];
+const title = document.getElementById("titre").value;
+const category = document.getElementById("select-categorie").value;
 
-function ajoutProjet() {
-    const image = document.getElementById("input-ajout").files[0];
+
+/*if (!image || title == "" || category == ""){
+  formulaireAjout.classList.replace("cta2","buttonFonctionnel");
+}else{
+  formulaireAjout.classList.replace("buttonFonctionnel","cta2");
+}*/
+const boutonAjout = document.querySelector(".btn-ajout")
+
+console.log(category)
+
+
+async function ajoutProjet() {
+    const image = document.querySelector(".input-ajout").files[0];
     const title = document.getElementById("titre").value;
-    const category = document.getElementById("label-categorie").value;
+    const category = document.getElementById("select-categorie").selectedIndex;
+    const categoryId = document.getElementById("select-categorie").options[category].id;
 
-    if (!image || title.trim() == "" || category.trim() == "") {
+    if (!image || title == "" || category == "") {
         alert("Veuillez rentrer tous les champs.");
     } else {
-        const formData = new FormData();
-        formData.append("titre", title);
-        formData.append("label-categorie", category);
-        formData.append("input-ajout", image);
-
-        fetch('http://localhost:5678/api/works', {
+        var reader = new FileReader();
+        const Data = new FormData();
+        Data.append("title", title);
+        Data.append("categorie", categoryId);
+        Data.append("image", reader.readAsDataURL(image));
+        
+        /*reader.onloadend = function() {
+          console.log('Encoded Base 64 File String:', reader.result);
+          var data=(reader.result).split(',')[1];
+          var binaryBlob = atob(data);
+          console.log('Encoded Binary File String:', binaryBlob);
+        }
+        reader.readAsDataURL(image);*/
+        console.log(title);
+        console.log(categoryId);
+        console.log(Data);
+        fetch("http://localhost:5678/api/works/", {
             method: 'POST',
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: formData,
+            body: Data,
         })
             .then(response => {
                 if (localStorage.getItem("token")) {
                     alert("Projet ajouté");
+                    console.log(response)
                     return response.json();
+                    
+                } else{
+                  alert("projet non ajouté")
+                  return response.json();
                 }
             })
             .then(projet => {
+                console.log(projet);
                 if (projet) {
                     console.log(projet);
                     divElement.push(projet);
@@ -231,11 +282,28 @@ function ajoutProjet() {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.log('Error:', error);
                 alert("Une erreur est survenue lors de l'ajout du projet !")
             });
     }
 };
+
+
+
+  const file1 = document.getElementById(".input-ajout").files[0];
+  const viewImage = document.getElementById(".image-modal");
+  const tailleMax = 4 * 1024 * 1024;
+
+  if (file1.size > tailleMax) {
+    drop.textContent = "Votre image est trop volumineuse";
+    console.log("fichier > 4MO!");
+    return;
+  };
+
+  
+/*const image = inputFile.files[0];*/
+
+
 
 async function creerImgModale(projet) {
     const figure = document.createElement("figure")
@@ -265,95 +333,114 @@ async function creerImgGallery(projet){
 
 }
 
-const btnAjout = document.querySelector(".btn-ajout")
+const btnAjout = document.getElementById("photo")
 const drop = document.querySelector(".image-ajout")
 
-function visualisationModal(){
-    btnAjout.addEventListener("click", () => {
-        const visualisationPhoto = new FileReader();
-        visualisationPhoto.readAsDataURL(btnAjout.files[0]);
+btnAjout.onclick = () =>{
+    inputAjout.click()
+}
+const inputAjout = document.querySelector(".input-ajout")
 
-        visualisationPhoto.addEventListener("load", () => {
-        const nonConforme = document.querySelector(".nonConforme");
-        var fileInput = document.getElementById("photo");
-        var file = fileInput.files[0];
+inputAjout.addEventListener("change",function(){
+    let file = this.files[0];
+    
+    typeFichier(file);
+})
 
-        if (file.type !== "image/jpeg" && file.type !== "image/png") {
-            nonConforme.innerText = "Utilisez une photo format jpg ou png.";
-        } else if (file.size > 4 * 1024 * 1024) {
-            nonConforme.innerText =
-            "utilisez une photo de moins de 4 mo.";
-        } else {
-            nonConforme.innerText = "";
-            const url = photoPreview.result;
-            img = new Image();
-            img.classList.add("visualisationImg");
-            img.src = url;
-            drop.appendChild(img);
-            return img;
+function typeFichier(file){
+    console.log(file);
+    let fichier = file.type;
+    console.log(fichier);
+
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onloadend = () => {
+            
+
+            let imag = `<img src=${reader.result} alt="image"/>`
+            drop.innerHTML = imag;
         }
-        });
-    });
 };
 
 const titreAjout = document.querySelector("titre")
 const categorieSelect = document.querySelector("select-categorie")
 
-function ChangementButton() {
-    const titreAjout = btnAjout.files;
-    const nom = titreAjout.value.trim() !== "";
-    const categorieChoisi = categorieSelect.value !== "";
+const envoie = ""
 
-    if (
-      titreAjout.length > 0 &&
-      nom &&
-      categorieChoisi
-    ) {
-      formulaireAjout.classList = "buttonFonctionnel";
+/*if (drop.files.length > 0 && titreAjout.value !== "" && categorieSelect.value !== "") {
+  formulaireAjout.classList.replace("cta2","buttonFonctionnel");
+  envoie = "ok"
+} else {
+  formulaireAjout.classList = "cta2";
+}*/
+
+    if (drop === null || image === undefined) {
+      drop.textContent = "Veuillez selectionnez une image";
+      
+    } else if (title.length < 1) {
+      titreAjout.textContent = "Ajoutez un titre";
+    } else if (categorieSelect === "") {
+      categorieSelect.textContent = "Choisissez une catégorie";
+      titreAjout.textContent = "";
     } else {
-      formulaireAjout.id = "";
-    }
-};
+      boutonAjout.style.display = "none";
 
+      formulaireAjout.style.background = " #1d6154";
+      titreAjout.textContent = "";
+      categorieSelect.textContent = "";
+      
+    };
+    
+/*
 formulaireAjout.addEventListener("click", async (e) => {
     e.preventDefault();
-    if (formulaireAjout.id === "buttonFonctionnel") {
-      e.preventDefault();
-      try {
-        await postData();
-        img.remove();
-        titreAjout.value = "";
-        categorieSelect.selectedIndex = 0;
-        formulaireAjout.removeAttribute("id");
-        divElement.innerHTML = "";
-        await createImgGallery();
-      } catch (error) {
-        console.log("Erreur", error);
-      }
-    }
-});
+    if(envoie !== "ok"){
+        const image = inputFile.files[0];
+        console.log(image)
 
-async function postDatas() {
-    return new Promise((resolve) => {
-      const token = localStorage.getItem("token");
-      const formData = new FormData();
-      formData.append("image", uploadPhotoButton.files[0]);
-      formData.append("title", nameInput.value);
-      formData.append("category", categoryId);
-
-      fetch("http://localhost:5678/api/works", {
+      //Récupérer Titre
+       const title = document.querySelector("#titre").value;
+       let categorySelect = document.querySelector("#select-categorie");
+       let selectedOption = categorySelect.selectedOptions[0];
+       let category = selectedOption.getAttribute("data-id");
+       console.log(category)
+       category = parseInt(category);
+       const Data = new FormData();
+       Data.append("image", image);
+       Data.append("titre", title);
+       Data.append("category", category);
+       alert(Data);
+       fetch("http://localhost:5678/api/" + "works", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
         },
-        body: formData,
-      }).then((response) => {
-        if (response.status === 201) {
-          resolve();
+        body: Data,
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("requête POST fonctionne pas ");
         }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("requête POST fonctionne:", data);
+        creerImgGallery()
+        creerImgModale()
+        inputFile.value = "";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("requête POST ne fonctionne pas ");
       });
-    });
+  } else {
+    console.log("Formulaire invalide !!!");
   }
+});*/
+
+
 /*SUPPRIMER DES PROJETS*/
 const supprimer = document.querySelectorAll(".fa-trash-can");
 const imageSuppr = document.querySelectorAll(".image-modal figure");
@@ -376,14 +463,6 @@ const imageS = document.querySelectorAll(".image-modal img");
                 elementSupprimeModal.parentNode.removeChild(elementSupprimeModal);
                 }
             }
-        };
-    
-for(poubelles in supprimer){
-    poubelles.addEventListener("click", function () {
+      };
+     
        
-        deleteElementById(id);
-      })
-    };
-
-
-

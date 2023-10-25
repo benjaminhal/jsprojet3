@@ -405,8 +405,10 @@ footer nav ul {
   
   .overlay {
 	opacity: 0;
-	position: absolute;
-	width: 100%;
+	position: relative;
+	right: 116px;
+	width: 10000px;
+
 	height: 100%;
 	background: #333333d3;
 	transition: opacity 0.4s 0.2s ease-out;
@@ -423,8 +425,8 @@ footer nav ul {
   
   .modal {
 	opacity: 0;
-	width: 41%;
-	height: 525px;
+	width: 40%;
+	height: 420px;
 	padding: 30px;
 	background: #fff;
 	border-radius: 5px;
@@ -432,7 +434,7 @@ footer nav ul {
     max-height: calc(104vh - 20px);
 	position: absolute;
 	top: 40%;
-	left: 50%;
+	left: 45%;
 	transform: translate(-50%, calc(-50% - 50px));
 	transition: opacity 0.4s ease-out,
 	transform 0.4s ease-out;
@@ -440,7 +442,7 @@ footer nav ul {
 
   .modal2 {
 	opacity: 0;
-	width: 41%;
+	width: 40%;
 	height: 525px;
 	padding: 30px;
 	background: #fff;
@@ -449,7 +451,7 @@ footer nav ul {
     max-height: calc(104vh - 20px);
 	position: absolute;
 	top: 40%;
-	left: 50%;
+	left: 45%;
 	transform: translate(-50%, calc(-50% - 50px));
 	transition: opacity 0.4s ease-out,
 	transform 0.4s ease-out;
@@ -566,22 +568,7 @@ i.fa-regular.fa-image{
 	position: relative;
 	top: -7.5em;
 }
-.modal2 {
-	opacity: 0;
-	width: 41%;
-	height: 525px;
-	padding: 30px;
-	background: #fff;
-	border-radius: 5px;
-	max-width: calc(100vw - 20px);
-    max-height: calc(104vh - 20px);
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, calc(-50% - 50px));
-	transition: opacity 0.4s ease-out,
-	transform 0.4s ease-out;
-  }
+
 
 .modal2 h1{
 	margin: 15px;
@@ -657,8 +644,22 @@ input.ajoutPhoto {
 }
 
 
-
-#cta{
+.input-ajout{
+	display: none;
+}
+.cta2{
+	color: white;
+    background-color: rgba(167, 167, 167, 1);
+    border-radius: 50px;
+    border-color: transparent;
+    width: 50%;
+	margin-top: 25px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#cta2{
 	color: white;
     background-color: rgba(167, 167, 167, 1);
     border-radius: 50px;
@@ -696,13 +697,15 @@ input.ajoutPhoto {
 
 .bar {
 	display: none;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 59px;
-	background-color: black;
-	gap: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 122%;
+    position: relative;
+    right: 152px;
+    height: 58px;
+    background-color: black;
+    gap: 20px
 }
 
 .bar p {
@@ -729,8 +732,10 @@ input.ajoutPhoto {
 
 .image-ajout img{
 	width: 100%;
-	height: 100%;
+	height: 75%;
 	object-fit: contain;
+	position: relative;
+	right: 155px;
 
 }
 

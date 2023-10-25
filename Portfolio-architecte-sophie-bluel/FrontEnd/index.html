@@ -10,7 +10,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	
-	<script type="module" src="modif.js"></script>
+	
 	<script src="https://kit.fontawesome.com/9a62b12d41.js" crossorigin="anonymous"></script>
 
 </head>
@@ -73,25 +73,26 @@
 			  <div class="ajout">
 				<div class="image-ajout"><i class="fa-regular fa-image"></i></div>
 					<button class="btn-ajout" id="photo">+ Ajouter une photo</button>
-					<input type="file" hidden class="input-ajout">
+					<input type="file" accept=".jpg, .png" class="input-ajout">
 					<p>jpg. png : 4mo max</p>
+					<span id="errorImg"></span>
 					<p class="nonConforme"></p>
 			  </div>
 				<div>
 					<form method="post" action="" id="formulaire-ajout">
-							<label for="titre" id="titre">Titre</label>
+							<label for="titre">Titre</label>
 							<input type="text" name="titre" id="titre" required >
 							<label for="categories" id="label-categorie">Catégorie</label>
-							<select type="categorie" id="select-categorie">
+							<select type="categorie" id="select-categorie" data-id="">
 								<option value=""></option>
-								<option valeur="objet">Objets</option>
-								<option valeur="appartement">Appartements</option>
-								<option valeur="Hotel-restaurant">Hôtel & restaurants</option>
+								<!--<option value="objet">Objets</option>
+								<option value="appartement">Appartements</option>
+								<option value="Hotel-restaurant">Hôtel & restaurants</option>-->
 							</select>
 							
 					</form>
 					<div class="valider">
-						<button type="submit" value="" id="cta">Valider</button>
+						<button type="submit" value="" class="cta2">Valider</button>
 						<span class="error" aria-live="polite"></span>
 					</div>
 				</div>
@@ -181,4 +182,6 @@
 	</nav>
 </footer>
 </body>
+<script type="module" src="modif.js"></script>
 </html>
+
