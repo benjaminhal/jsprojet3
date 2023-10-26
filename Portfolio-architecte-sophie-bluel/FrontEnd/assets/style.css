@@ -470,7 +470,18 @@ footer nav ul {
 	transition: opacity 0.4s 0.2s ease-out,
 	transform 0.4s 0.2s ease-out;
   }
-  
+  .ajout p{
+	position: relative;
+    top: 0em;
+    left: 108px;
+  }
+
+  #image-info{
+	position: relative;
+    top: -7em;
+    left: 10px;
+  }
+
   .close-modal {
 	padding: 8px 10px;
 	border: none;
@@ -596,12 +607,7 @@ i.fa-regular.fa-image{
     left: 0px;
     font-size: 20px;
 }
-.ajout p{
-	font-size: 10px;
-	position: relative;
-    top: -9em;
-    left: 148px;
-}
+
 
 .image-ajout{
 	height: 200px;
@@ -738,7 +744,13 @@ input.ajoutPhoto {
 	right: 155px;
 
 }
-
+.ajout img{
+	display:none;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    right: -110px;
+}
 .nonConforme{
 	z-index: 5;
 	color: red;

@@ -71,10 +71,11 @@
 			  <button aria-label="close modal2" class="close-modal2 modal-trigger">X</button>
 			  <h1 id="modalTitle">Ajout photo</h1>
 			  <div class="ajout">
+				<img src="#" id="imagePreview" alt="">
 				<div class="image-ajout"><i class="fa-regular fa-image"></i></div>
 					<button class="btn-ajout" id="photo">+ Ajouter une photo</button>
 					<input type="file" accept=".jpg, .png" class="input-ajout">
-					<p>jpg. png : 4mo max</p>
+					<div id="image-info"><p>jpg. png : 4mo max</p></div>
 					<span id="errorImg"></span>
 					<p class="nonConforme"></p>
 			  </div>
@@ -83,11 +84,8 @@
 							<label for="titre">Titre</label>
 							<input type="text" name="titre" id="titre" required >
 							<label for="categories" id="label-categorie">Catégorie</label>
-							<select type="categorie" id="select-categorie" data-id="">
+							<select type="categorie" id="select-categorie" >
 								<option value=""></option>
-								<!--<option value="objet">Objets</option>
-								<option value="appartement">Appartements</option>
-								<option value="Hotel-restaurant">Hôtel & restaurants</option>-->
 							</select>
 							
 					</form>
