@@ -56,16 +56,21 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	max-width: 1140px;
+    margin: auto;
 }
+
+main{
+	max-width: 1140px;
+    margin: auto;
+}
+
 section {
 	margin: 50px 0
 }
@@ -218,6 +223,11 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+footer{
+	max-width: 1140px;
+    margin: auto;
 }
 
 /* filtres*/
@@ -479,7 +489,7 @@ footer nav ul {
   #image-info{
 	position: relative;
     top: -7em;
-    left: 10px;
+    left: 150px;
   }
 
   .close-modal {
@@ -706,9 +716,7 @@ input.ajoutPhoto {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 122%;
-    position: relative;
-    right: 152px;
+    width: 100%;
     height: 58px;
     background-color: black;
     gap: 20px

@@ -4,7 +4,7 @@ const divElement = document.querySelector(".gallery");
 const filtreCategories = document.getElementById("btn-filtre")
 
 
-const affichage = await fetch("http://localhost:5678/api/works")
+fetch("http://localhost:5678/api/works")
     .then((response)=>{
         return response.json()
     })
@@ -14,6 +14,7 @@ const affichage = await fetch("http://localhost:5678/api/works")
             const fig =
                 document.createElement("figure");
                 fig.dataset.name = image.category["id"];
+                fig.id = "gallerie-modale"+image.id
                 fig.classList = "active";
                 var img = document.createElement("img");
                 img.src = image.imageUrl;
@@ -29,51 +30,78 @@ const affichage = await fetch("http://localhost:5678/api/works")
     });
 
 /*AJOUT DES FILTRES*/
+/*AJOUT DES FILTRES*/
 
 //creer les boutons filtre
- const filtre = await fetch("http://localhost:5678/api/categories")
-    .then((response)=>{
-        return response.json()
-    })
-    .then((result)=>{
-        console.log(result);
-        for(const boutons of result){
-            const btn = document.createElement("button");
-                btn.id = boutons.id;
-                btn.type = "button";
-                btn.innerHTML = boutons.name;
-                btn.classList = boutons.name
-                filtreCategories.appendChild(btn);
+ fetch("http://localhost:5678/api/categories")
+.then((response)=>{
+    return response.json()
+})
+.then((result)=>{
+    console.log(result);
+    for(const boutons of result){
+        const btn = document.createElement("button");
+            btn.id = boutons.id;
+            btn.type = "button";
+            btn.innerHTML = boutons.name;
+            btn.classList = boutons.name;
+            filtreCategories.appendChild(btn);
+            btn.addEventListener("click",filtrer())
+            console.log("click")
+    }; 
 
-        }
+    }
 
-    });
+);
+
+function filtrer(){
+for (let filter of btnFiltre){
+      let choix = filter.id
+      console.log(choix)
+  
+      let figures = document.querySelectorAll(".gallery figure");
+      
+      
+      
+      for(let figure of figures){
+          figure.classList.replace("active","inactive");
+          
+          if(choix === figure.dataset.name || choix === "Tous" ){
+              figure.classList.replace("inactive", "active");
+              
+          }
+          
+  
+      }; 
+  };
+};
 
 
 let btnFiltre =  document.querySelectorAll("#btn-filtre button");
 console.log(btnFiltre)
 
-//pour rendre fonctionnel les filtres
+/*//pour rendre fonctionnel les filtres
 for (let filter of btnFiltre){
-    filter.addEventListener("click", async function(){
-        let choix = this.id
+filter.addEventListener("click", async function(){
+    let choix = this.id
+    console.log(choix)
 
-        let figures = document.querySelectorAll(".gallery figure");
+    let figures = document.querySelectorAll(".gallery figure");
+    
+    
+    
+    for(let figure of figures){
+        figure.classList.replace("active","inactive");
         
-        
-        
-        for(let figure of figures){
-            figure.classList.replace("active","inactive");
+        if(choix === figure.dataset.name || choix === "Tous" ){
+            figure.classList.replace("inactive", "active");
             
-            if(choix === figure.dataset.name || choix === "Tous" ){
-                figure.classList.replace("inactive", "active");
-                
-            }
-            
+        }
+        
 
-        }; 
-    });
-};
+    }; 
+});
+};*/
 
 /*AJOUT DES MODALES*/
 
@@ -100,14 +128,15 @@ const affichageModal = fetch("http://localhost:5678/api/works")
         console.log(result);
         for(const image of result){
           const figure = 
-          document.createElement("figure")
+          document.createElement("figure");
+          figure.id = "modale" + image.id
           const fig = document.createElement("i");
           fig.classList = "fa-solid fa-trash-can";
-          fig.id = image.id
+          /*fig.id = image.id*/
           /*POUR SUPPRIMER UNE IMAGE DE LA MODALE ET DE L'API*/
           fig.addEventListener("click",function(){
             console.log("click"+ this.id)
-            deleteElementById(this.id);
+            deleteElementById(figure.id);
 
           })
           const img = document.createElement("img")
@@ -121,7 +150,7 @@ const affichageModal = fetch("http://localhost:5678/api/works")
 
 const formModale2 = document.getElementById("select-categorie")
 
-//creation des balise ooption qui contient les catégories sur la modale2 
+//creation des balises option qui contient les catégories sur la modale2 
 const affichageModal2 = fetch("http://localhost:5678/api/categories")
     .then((response)=>{
         return response.json()
@@ -149,8 +178,8 @@ const fermer = document.querySelector(".close-modal2")
 
 //fermer la modale au click sur la croix
 fermer.addEventListener("click",function(){
-  modalContainer2.classList.remove("active")
-  modalContainer.classList.remove("active")
+  modalContainer2.classList.remove("active");
+  modalContainer.classList.remove("active");
 
 });
 
@@ -167,8 +196,8 @@ const retour = document.querySelector(".retour");
 
 //retourner à la modale1 
 retour.addEventListener("click",function(){
-  modalContainer2.classList.remove("active")
-  modalContainer.classList.toggle("active")
+  modalContainer2.classList.remove("active");
+  modalContainer.classList.toggle("active");
 
 });
 
@@ -425,22 +454,24 @@ const imageSuppr = document.querySelectorAll(".image-modal figure");
 const figGallery = document.querySelectorAll(".gallery figure")
 const imageS = document.querySelectorAll(".image-modal img");
 
-    async function deleteElementById(id) {
+    function deleteElementById(id) {
+      console.log(id)
             const token = localStorage.getItem("token");
-            const response = fetch(`http://localhost:5678/api/works/${id}`, {
+            fetch(`http://localhost:5678/api/works/${id.replace('modale', '')}`, {
                 method: "DELETE",
                 headers: {
                 Authorization: `Bearer ${token}`,
                 },
             });
-            if (response) {
-                const elementSupprime = document.getElementById(figGallery + id);
-                const elementSupprimeModal = document.getElementById( imageSuppr + id);
-                if (elementSupprime && elementSupprimeModal) {
+
+                const elementSupprime = document.getElementById("gallerie-" + id);
+                const elementSupprimeModal = document.getElementById(id);
+                /*if (elementSupprime && elementSupprimeModal) {*/
+                console.log(elementSupprime)
+                console.log(elementSupprimeModal)
                 elementSupprime.parentNode.removeChild(elementSupprime);
                 elementSupprimeModal.parentNode.removeChild(elementSupprimeModal);
-                }
-            }
+              
       };
 
 
@@ -469,6 +500,43 @@ const imageS = document.querySelectorAll(".image-modal img");
         }
       };
 
+function creerImgModale(projet){
+ fetch("http://localhost:5678/api/works")
+    .then((response)=>{
+        return response.json()
+    })
+    .then((result)=>{
+        console.log(result);
+        for(const catego of result){
+          const figure = document.createElement("figure")
+          const fig = document.createElement("i");
+          fig.classList = "fa-solid fa-trash-can"
+          const img = document.createElement("img")
+          img.src = catego.imageUrl;
+          img.alt = catego.title;
+          figure.appendChild(img)
+          figure.appendChild(fig)
+          modale.appendChild(figure);
+          return figure;
+        }
+})
+};
+
+/*
+function creerImgModale(projet) {
+  const figure = document.createElement("figure")
+  const fig = document.createElement("i");
+  fig.classList = "fa-solid fa-trash-can"
+  const img = document.createElement("img")
+  img.src = projet.imageUrl;
+  img.alt = projet.title;
+  figure.appendChild(img)
+  figure.appendChild(fig)
+  modale.appendChild(figure);
+  return figure;
+};*/
+      
+    
       //recuperer la categorie
       const fetchCategory = async () => {
         const res = await fetch('http://localhost:5678/api/categories/');
@@ -509,6 +577,23 @@ const formAjout = document.getElementById('select-categorie');
 const imagePreview = document.getElementById('imagePreview');
 const imageinfo = document.getElementById('image-info');
 let imageWork = "";
+
+const reset = () => {
+  imageinfo.style.display = "block";
+  imagePreview.style.display = "none";
+  imageWork = "";
+  titre.value = "";
+  document.querySelector('.fa-regular').style.display = "block";
+  document.querySelector('.btn-ajout').style.display = "block";
+  document.querySelector('.fa-image').style.display = "block";
+  document.querySelector('.ajout').style.padding = "40px 0 40px";
+  formAjout.value = "";
+  inputImage.value = "";
+  selectCategorieIdDuSelect = "";
+  document.querySelector(".cta2").style.backgroundColor = "#A7A7A7";
+  imageinfo.innerHTML = "jpg, png : 4mo max";
+  imageinfo.style.color = "black";
+};
 
 // Pour déclencher le click sur input
 btnAjoutImage.addEventListener('click', (e) => {
@@ -571,6 +656,10 @@ inputImage.addEventListener('change', () => {
   }
 });
 
+function resetApresEnvoie() {
+  Data = "";
+  reset();
+};
 
 
 //afficher et envoyer l'image et son titre
@@ -593,9 +682,12 @@ const envoyerImage = async (event) => {
       body: Data
   });
   if (response.ok) {
-      resetApresErreur();
+      console.log("response.ok")
+      resetApresEnvoie();
       fetchData("http://localhost:5678/api/works/", creerBaliser);
-      fetchDataAndDisplayOnModal();
+      creerImgModale(response.json());
+      modalContainer2.classList.remove("active");
+      modalContainer.classList.remove("active");
   } else if (response.status === 400 && titre.value.trim() == "") {
     messageErreur("Veuillez remplir le formulaire", "red");
 
@@ -604,15 +696,13 @@ const envoyerImage = async (event) => {
 
   } else if (response.status === 400 || response.status === 401 || response.status === 500) {
     messageErreur("Erreur de l'API", "red");
-      resetApresErreur();
+      resetApresEnvoie();
   } else {
     messageErreur("Veuillez remplir le formulaire", "red");
   }
 };
 
-function resetApresErreur() {
-  Data = "";
-};
+
 
 function changerBoutton() {
   if (imageWork == "ok" && titre.value !== "" && formAjout.value !== "") {
@@ -627,5 +717,10 @@ function changerBoutton() {
 titre.addEventListener('change', changerBoutton);
 formAjout.addEventListener('change', changerBoutton);
 
+const init = () => {
+  fetchData("http://localhost:5678/api/works/", creerBaliser);
+};
+
+init();
 
 

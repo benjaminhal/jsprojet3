@@ -2,7 +2,7 @@ let form = document.querySelector("formulaire");
 let inputEmail = document.querySelector("#email");
 let inputMdp = document.querySelector("#password");
 let envoyer = document.querySelector("#cta");
-envoyer.addEventListener("click",async function(e){
+envoyer.addEventListener("click",function(e){
   var id = {
     email : inputEmail.value,
     password : inputMdp.value
