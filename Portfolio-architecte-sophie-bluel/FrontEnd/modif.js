@@ -11,9 +11,11 @@ fetch("http://localhost:5678/api/works")
     .then((result)=>{
         console.log(result);
         for(const image of result){
-            const fig =
+            let fig =
                 document.createElement("figure");
-                fig.dataset.name = image.category["id"];
+                fig.setAttribute("data-name",image.category.id);
+                //fig.dataset.name = image.category["id"];
+                console.log("setattribute")
                 fig.id = "gallerie-modale"+image.id
                 fig.classList = "active";
                 var img = document.createElement("img");
@@ -24,6 +26,7 @@ fetch("http://localhost:5678/api/works")
                 titre.textContent = image.title;
                 fig.appendChild(titre);
                 divElement.appendChild(fig);
+                console.log(fig)
 
         }
 
@@ -46,7 +49,7 @@ fetch("http://localhost:5678/api/works")
             btn.innerHTML = boutons.name;
             btn.classList = boutons.name;
             filtreCategories.appendChild(btn);
-            btn.addEventListener("click",filtrer())
+            btn.addEventListener("click",function(){filtrer(boutons.id)})
             console.log("click")
     }; 
 
@@ -54,9 +57,21 @@ fetch("http://localhost:5678/api/works")
 
 );
 
-function filtrer(){
-for (let filter of btnFiltre){
-      let choix = filter.id
+const btntous = document.getElementById("Tous")
+
+btntous.addEventListener("click",function(){
+  let figures = document.querySelectorAll(".gallery figure");
+  for(let figure of figures){
+    figure.classList.replace("inactive", "active")
+
+  }
+  
+
+})
+
+function filtrer(id){
+  console.log("filtrer"+ id)
+      choix = id;
       console.log(choix)
   
       let figures = document.querySelectorAll(".gallery figure");
@@ -65,24 +80,23 @@ for (let filter of btnFiltre){
       
       for(let figure of figures){
           figure.classList.replace("active","inactive");
-          
-          if(choix === figure.dataset.name || choix === "Tous" ){
+          console.log(figure.dataset.name);
+          if(choix == figure.dataset.name || choix === "Tous" ){
               figure.classList.replace("inactive", "active");
               
           }
           
   
-      }; 
-  };
+      };
 };
 
 
 let btnFiltre =  document.querySelectorAll("#btn-filtre button");
 console.log(btnFiltre)
 
-/*//pour rendre fonctionnel les filtres
-for (let filter of btnFiltre){
-filter.addEventListener("click", async function(){
+//pour rendre fonctionnel les filtre
+/*for (let filter of btnFiltre){
+filter.addEventListener("click", function(){
     let choix = this.id
     console.log(choix)
 
@@ -94,11 +108,8 @@ filter.addEventListener("click", async function(){
         figure.classList.replace("active","inactive");
         
         if(choix === figure.dataset.name || choix === "Tous" ){
-            figure.classList.replace("inactive", "active");
-            
+            figure.classList.replace("inactive", "active");   
         }
-        
-
     }; 
 });
 };*/
@@ -480,10 +491,12 @@ const imageS = document.querySelectorAll(".image-modal img");
 
       //creation de la balise figure et les balises qu'elle contient
       const creerBaliser = (data) => {
+        console.log("creerBalise");
         const gallery = document.querySelector(".gallery");
         gallery.innerHTML = "";
         for (let i = 0; i < data.length; i++) {
-            const { imageUrl: img, title: titre } = data[i];
+            const { imageUrl: img, title: titre} = data[i];
+            const fig = createElemt("figure")
             const article = createElemt("figure", `<img src="${img}" alt="${titre}"><figcaption>${titre}</figcaption>`);
             gallery.appendChild(article);
         }
@@ -500,27 +513,40 @@ const imageS = document.querySelectorAll(".image-modal img");
         }
       };
 
-function creerImgModale(projet){
+/*function creerImgModale(projet){
  fetch("http://localhost:5678/api/works")
     .then((response)=>{
         return response.json()
     })
     .then((result)=>{
         console.log(result);
-        for(const catego of result){
+        
           const figure = document.createElement("figure")
           const fig = document.createElement("i");
           fig.classList = "fa-solid fa-trash-can"
           const img = document.createElement("img")
-          img.src = catego.imageUrl;
-          img.alt = catego.title;
+          img.src = projet.imageUrl;
+          img.alt = projet.title;
           figure.appendChild(img)
           figure.appendChild(fig)
           modale.appendChild(figure);
           return figure;
-        }
+        
 })
+};*/
+
+const creerImgModale = (data) => {
+  console.log("creerimg");
+  const gallery = document.querySelector(".image-modal");
+  gallery.innerHTML = "";
+  for (let i = 0; i < data.length; i++) {
+      const { imageUrl: img, title: titre} = data[i];
+      const fig = createElemt("figure")
+      const article = createElemt("figure", `<img src="${img}" alt="${titre}">`);
+      gallery.appendChild(article);
+  }
 };
+
 
 /*
 function creerImgModale(projet) {
@@ -584,6 +610,12 @@ const reset = () => {
   imageWork = "";
   titre.value = "";
   document.querySelector('.fa-regular').style.display = "block";
+  document.querySelector(".image-ajout").style.position = "relative";
+  document.querySelector(".image-ajout").style.height = "167px";
+  document.querySelector(".fa-regular").style.position = "relative";
+  document.querySelector(".fa-regular").style.top = "-1em";
+  document.querySelector(".fa-image").style.position = "relative";
+  document.querySelector(".fa-image").style.top = "-0.5em";
   document.querySelector('.btn-ajout').style.display = "block";
   document.querySelector('.fa-image').style.display = "block";
   document.querySelector('.ajout').style.padding = "40px 0 40px";
@@ -685,7 +717,7 @@ const envoyerImage = async (event) => {
       console.log("response.ok")
       resetApresEnvoie();
       fetchData("http://localhost:5678/api/works/", creerBaliser);
-      creerImgModale(response.json());
+      fetchData("http://localhost:5678/api/works/", creerImgModale);
       modalContainer2.classList.remove("active");
       modalContainer.classList.remove("active");
   } else if (response.status === 400 && titre.value.trim() == "") {
@@ -717,10 +749,10 @@ function changerBoutton() {
 titre.addEventListener('change', changerBoutton);
 formAjout.addEventListener('change', changerBoutton);
 
-const init = () => {
+/*const init = () => {
   fetchData("http://localhost:5678/api/works/", creerBaliser);
-};
+};*/
 
-init();
+//init();
 
 
