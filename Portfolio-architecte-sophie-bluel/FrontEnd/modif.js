@@ -16,7 +16,7 @@ fetch("http://localhost:5678/api/works")
                 fig.setAttribute("data-name",image.category.id);
                 //fig.dataset.name = image.category["id"];
                 console.log("setattribute")
-                fig.id = "gallerie-modale"+image.id
+                fig.id = "gallerie-modale"+image.id;
                 fig.classList = "active";
                 var img = document.createElement("img");
                 img.src = image.imageUrl;
@@ -495,10 +495,22 @@ const imageS = document.querySelectorAll(".image-modal img");
         const gallery = document.querySelector(".gallery");
         gallery.innerHTML = "";
         for (let i = 0; i < data.length; i++) {
-            const { imageUrl: img, title: titre} = data[i];
-            const fig = createElemt("figure")
-            const article = createElemt("figure", `<img src="${img}" alt="${titre}"><figcaption>${titre}</figcaption>`);
-            gallery.appendChild(article);
+            //const { imageUrl: img, title: titre, mondId: id} = data[i];
+            //const article = createElemt("figure",` <img src="${img}" alt="${titre}"><figcaption>"${titre}"</figcaption>`);
+            const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
+            const figureElements = document.createElement('figure');
+            figureElements.setAttribute("data-name", id);
+            figureElements.id = "gallerie-modale"+id;
+            figureElements.classList = "active";
+            figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><figcaption>${titre}</figcaption>`;
+            
+        
+            //const { imageUrl: img, title: titre} = data[i];
+            //const article = createElemt("figure", `<img src="${img}" alt="${titre}"> <i class="fa-solid fa-trash-can"></i>`);
+            gallery.appendChild(figureElements);
+                  
+            //gallery.appendChild(article);
+            
         }
       };
 
@@ -540,10 +552,15 @@ const creerImgModale = (data) => {
   const gallery = document.querySelector(".image-modal");
   gallery.innerHTML = "";
   for (let i = 0; i < data.length; i++) {
-      const { imageUrl: img, title: titre} = data[i];
-      const fig = createElemt("figure")
-      const article = createElemt("figure", `<img src="${img}" alt="${titre}">`);
-      gallery.appendChild(article);
+    const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
+    const figureElements = document.createElement('figure');
+    figureElements.id = "modale"+id;
+    figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><i class="fa-solid fa-trash-can"></i>`;
+    
+        
+      //const { imageUrl: img, title: titre} = data[i];
+      //const article = createElemt("figure", `<img src="${img}" alt="${titre}"> <i class="fa-solid fa-trash-can"></i>`);
+      gallery.appendChild(figureElements);
   }
 };
 
@@ -580,9 +597,10 @@ function creerImgModale(projet) {
     };
 
     //constante qui permet de créer un élement
-    const createElemt = (elem, texte) => {
+    const createElemt = (elem, texte, mondId) => {
       const elemCreated = document.createElement(elem);
       elemCreated.innerHTML += texte;
+      elemCreated.setAttribute("id",mondId)
       return elemCreated;
   };       
 
