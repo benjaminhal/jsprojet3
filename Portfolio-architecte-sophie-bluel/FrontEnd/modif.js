@@ -94,26 +94,6 @@ function filtrer(id){
 let btnFiltre =  document.querySelectorAll("#btn-filtre button");
 console.log(btnFiltre)
 
-//pour rendre fonctionnel les filtre
-/*for (let filter of btnFiltre){
-filter.addEventListener("click", function(){
-    let choix = this.id
-    console.log(choix)
-
-    let figures = document.querySelectorAll(".gallery figure");
-    
-    
-    
-    for(let figure of figures){
-        figure.classList.replace("active","inactive");
-        
-        if(choix === figure.dataset.name || choix === "Tous" ){
-            figure.classList.replace("inactive", "active");   
-        }
-    }; 
-});
-};*/
-
 /*AJOUT DES MODALES*/
 
 const modalContainer = document.querySelector(".modal-container");
@@ -194,15 +174,6 @@ fermer.addEventListener("click",function(){
 
 });
 
-/*fermer la modale
-function closeModal(){
-  fermer.addEventListener("click",function(){
-    modalContainer2.classList.remove("active")
-    modalContainer.classList.remove("active")
-
-  })
-};*/
-
 const retour = document.querySelector(".retour");
 
 //retourner à la modale1 
@@ -251,213 +222,6 @@ if (token != null) {
   function removeToken() {
     localStorage.removeItem("token");
   };
-/*AJOUT D'UN PROJET*/
-
-/*const boutonAjout = document.querySelector(".btn-ajout")*/
-
-/*async function ajoutProjet() {
-    const image = document.querySelector(".input-ajout").files[0];
-    const title = document.getElementById("titre").value;
-    const category = document.getElementById("select-categorie").selectedIndex;
-    const categoryId = document.getElementById("select-categorie").options[category].id;
-
-    if (!image || title == "" || category == "") {
-        alert("Veuillez rentrer tous les champs.");
-    } else {
-        var reader = new FileReader();
-        const Data = new FormData();
-        Data.append("title", title);
-        Data.append("categorie", categoryId);
-        Data.append("image", reader.readAsDataURL(image));
-        
-        /*reader.onloadend = function() {
-          console.log('Encoded Base 64 File String:', reader.result);
-          var data=(reader.result).split(',')[1];
-          var binaryBlob = atob(data);
-          console.log('Encoded Binary File String:', binaryBlob);
-        }
-        reader.readAsDataURL(image);*/
-       /* console.log(title);
-        console.log(categoryId);
-        console.log(Data);
-        fetch("http://localhost:5678/api/works/", {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body: Data,
-        })
-            .then(response => {
-                if (localStorage.getItem("token")) {
-                    alert("Projet ajouté");
-                    console.log(response)
-                    return response.json();
-                    
-                } else{
-                  alert("projet non ajouté")
-                  return response.json();
-                }
-            })
-            .then(projet => {
-                console.log(projet);
-                if (projet) {
-                    console.log(projet);
-                    divElement.push(projet);
-                    const galleryModaleImg = document.querySelector(".image-modal");
-                    const figureModale = creerImgModale(projet);
-                    galleryModaleImg.appendChild(figureModale);
-
-                    const figureIndex = creerImgGallery(projet);
-                    divElement.appendChild(figureIndex);
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error);
-                alert("Une erreur est survenue lors de l'ajout du projet !")
-            });
-    }
-};*/
-  
-/*const image = inputFile.files[0];*/
-
-
-
-/*async function creerImgModale(projet) {
-    const figure = document.createElement("figure")
-    const fig = document.createElement("i");
-    fig.classList = "fa-solid fa-trash-can"
-    const img = document.createElement("img")
-    img.src = projet.imageUrl;
-    img.alt = projet.title;
-    figure.appendChild(img)
-    figure.appendChild(fig)
-    modale.appendChild(figure);
-    return figure;
-};
-
-async function creerImgGallery(projet){
-    const fig = document.createElement("figure");
-    fig.dataset.name = projet.category["id"];
-    fig.classList = "active";
-    var img = document.createElement("img");
-    img.src = projet.imageUrl;
-    img.alt = projet.title;
-    fig.appendChild(img);
-    var titre = document.createElement("figcaption");
-    titre.textContent = projet.title;
-    fig.appendChild(titre);
-    divElement.appendChild(fig);
-
-}*/
-
-/*const btnAjout = document.getElementById("photo")
-const drop = document.querySelector(".image-ajout")*/
-
-/*btnAjout.onclick = () =>{
-    inputAjout.click()
-}
-const inputAjout = document.querySelector(".input-ajout")
-
-inputAjout.addEventListener("change",function(){
-    let file = this.files[0];
-    
-    typeFichier(file);
-})
-
-function typeFichier(file){
-    console.log(file);
-    let fichier = file.type;
-    console.log(fichier);
-
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.onloadend = () => {
-            
-
-            let imag = `<img src=${reader.result} alt="image"/>`
-            drop.innerHTML = imag;
-        }
-};
-
-const titreAjout = document.querySelector("titre")
-const categorieSelect = document.querySelector("select-categorie")
-
-const envoie = ""
-
-/*if (drop.files.length > 0 && titreAjout.value !== "" && categorieSelect.value !== "") {
-  formulaireAjout.classList.replace("cta2","buttonFonctionnel");
-  envoie = "ok"
-} else {
-  formulaireAjout.classList = "cta2";
-}
-
-    if (drop === null || image === undefined) {
-      drop.textContent = "Veuillez selectionnez une image";
-      
-    } else if (title.length < 1) {
-      titreAjout.textContent = "Ajoutez un titre";
-    } else if (categorieSelect === "") {
-      categorieSelect.textContent = "Choisissez une catégorie";
-      titreAjout.textContent = "";
-    } else {
-      boutonAjout.style.display = "none";
-
-      formulaireAjout.style.background = " #1d6154";
-      titreAjout.textContent = "";
-      categorieSelect.textContent = "";
-      
-    };*/
-    
-/*
-formulaireAjout.addEventListener("click", async (e) => {
-    e.preventDefault();
-    if(envoie !== "ok"){
-        const image = inputFile.files[0];
-        console.log(image)
-
-      //Récupérer Titre
-       const title = document.querySelector("#titre").value;
-       let categorySelect = document.querySelector("#select-categorie");
-       let selectedOption = categorySelect.selectedOptions[0];
-       let category = selectedOption.getAttribute("data-id");
-       console.log(category)
-       category = parseInt(category);
-       const Data = new FormData();
-       Data.append("image", image);
-       Data.append("titre", title);
-       Data.append("category", category);
-       alert(Data);
-       fetch("http://localhost:5678/api/" + "works", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: Data,
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("requête POST fonctionne pas ");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("requête POST fonctionne:", data);
-        creerImgGallery()
-        creerImgModale()
-        inputFile.value = "";
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        console.log("requête POST ne fonctionne pas ");
-      });
-  } else {
-    console.log("Formulaire invalide !!!");
-  }
-});*/
-
 
 /*SUPPRIMER DES PROJETS*/
 const supprimer = document.querySelectorAll(".fa-trash-can");
@@ -477,7 +241,6 @@ const imageS = document.querySelectorAll(".image-modal img");
 
                 const elementSupprime = document.getElementById("gallerie-" + id);
                 const elementSupprimeModal = document.getElementById(id);
-                /*if (elementSupprime && elementSupprimeModal) {*/
                 console.log(elementSupprime)
                 console.log(elementSupprimeModal)
                 elementSupprime.parentNode.removeChild(elementSupprime);
@@ -495,21 +258,13 @@ const imageS = document.querySelectorAll(".image-modal img");
         const gallery = document.querySelector(".gallery");
         gallery.innerHTML = "";
         for (let i = 0; i < data.length; i++) {
-            //const { imageUrl: img, title: titre, mondId: id} = data[i];
-            //const article = createElemt("figure",` <img src="${img}" alt="${titre}"><figcaption>"${titre}"</figcaption>`);
             const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
             const figureElements = document.createElement('figure');
             figureElements.setAttribute("data-name", id);
             figureElements.id = "gallerie-modale"+id;
             figureElements.classList = "active";
             figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><figcaption>${titre}</figcaption>`;
-            
-        
-            //const { imageUrl: img, title: titre} = data[i];
-            //const article = createElemt("figure", `<img src="${img}" alt="${titre}"> <i class="fa-solid fa-trash-can"></i>`);
             gallery.appendChild(figureElements);
-                  
-            //gallery.appendChild(article);
             
         }
       };
@@ -520,32 +275,9 @@ const imageS = document.querySelectorAll(".image-modal img");
             const data = await res.json();
             callback(data);
         } catch (Error) {
-            let header = document.querySelector('.image-sophie-bluel');
-            header.innerHTML = '<img src="./assets/images/404.jpeg" alt="page404">';
+            console.error(error);
         }
       };
-
-/*function creerImgModale(projet){
- fetch("http://localhost:5678/api/works")
-    .then((response)=>{
-        return response.json()
-    })
-    .then((result)=>{
-        console.log(result);
-        
-          const figure = document.createElement("figure")
-          const fig = document.createElement("i");
-          fig.classList = "fa-solid fa-trash-can"
-          const img = document.createElement("img")
-          img.src = projet.imageUrl;
-          img.alt = projet.title;
-          figure.appendChild(img)
-          figure.appendChild(fig)
-          modale.appendChild(figure);
-          return figure;
-        
-})
-};*/
 
 const creerImgModale = (data) => {
   console.log("creerimg");
@@ -555,32 +287,20 @@ const creerImgModale = (data) => {
     const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
     const figureElements = document.createElement('figure');
     figureElements.id = "modale"+id;
-    figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><i class="fa-solid fa-trash-can"></i>`;
-    
-        
-      //const { imageUrl: img, title: titre} = data[i];
-      //const article = createElemt("figure", `<img src="${img}" alt="${titre}"> <i class="fa-solid fa-trash-can"></i>`);
-      gallery.appendChild(figureElements);
-  }
+    figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}">`/*<i class="fa-solid fa-trash-can"></i>*/;
+    const poubelle = document.createElement("i")
+    poubelle.classList = "fa-solid fa-trash-can";
+    figureElements.appendChild(poubelle)
+    poubelle.addEventListener("click",function(){
+      console.log("click"+ this.id)
+      deleteElementById(figureElements.id);
+
+    })
+    gallery.appendChild(figureElements);
+  };
 };
-
-
-/*
-function creerImgModale(projet) {
-  const figure = document.createElement("figure")
-  const fig = document.createElement("i");
-  fig.classList = "fa-solid fa-trash-can"
-  const img = document.createElement("img")
-  img.src = projet.imageUrl;
-  img.alt = projet.title;
-  figure.appendChild(img)
-  figure.appendChild(fig)
-  modale.appendChild(figure);
-  return figure;
-};*/
-      
     
-      //recuperer la categorie
+      /*recuperer la categorie
       const fetchCategory = async () => {
         const res = await fetch('http://localhost:5678/api/categories/');
         const data = await res.json();
@@ -594,13 +314,12 @@ function creerImgModale(projet) {
             categorychoisi.setAttribute("id", `${id}`);
             selectCategorie.appendChild(categorychoisi);
         });
-    };
+    };*/
 
     //constante qui permet de créer un élement
-    const createElemt = (elem, texte, mondId) => {
+    const createElemt = (elem, texte) => {
       const elemCreated = document.createElement(elem);
       elemCreated.innerHTML += texte;
-      elemCreated.setAttribute("id",mondId)
       return elemCreated;
   };       
 
@@ -630,19 +349,26 @@ const reset = () => {
   document.querySelector('.fa-regular').style.display = "block";
   document.querySelector(".image-ajout").style.position = "relative";
   document.querySelector(".image-ajout").style.height = "167px";
+  document.querySelector(".image-ajout").style.top = "3em";
+  document.querySelector(".image-ajout").style.left = "192px";
+  document.querySelector(".fa-regular").style.display = "block";
   document.querySelector(".fa-regular").style.position = "relative";
-  document.querySelector(".fa-regular").style.top = "-1em";
+  document.querySelector(".fa-regular").style.top = "-0.6em";
+  document.querySelector(".fa-image").style.display = "block";
   document.querySelector(".fa-image").style.position = "relative";
-  document.querySelector(".fa-image").style.top = "-0.5em";
+  document.querySelector(".fa-image").style.top = "-0.6em";
   document.querySelector('.btn-ajout').style.display = "block";
-  document.querySelector('.fa-image').style.display = "block";
-  document.querySelector('.ajout').style.padding = "40px 0 40px";
+  document.querySelector('.btn-ajout').style.top = "-6.7em";
+  //document.querySelector('.ajout').style.padding = "40px 0 40px";
   formAjout.value = "";
   inputImage.value = "";
   selectCategorieIdDuSelect = "";
   document.querySelector(".cta2").style.backgroundColor = "#A7A7A7";
   imageinfo.innerHTML = "jpg, png : 4mo max";
   imageinfo.style.color = "black";
+  imageinfo.style.position = "relative";  
+  imageinfo.style.top = "-5em";
+  imageinfo.style.left = "165px";
 };
 
 // Pour déclencher le click sur input
@@ -766,11 +492,5 @@ function changerBoutton() {
 
 titre.addEventListener('change', changerBoutton);
 formAjout.addEventListener('change', changerBoutton);
-
-/*const init = () => {
-  fetchData("http://localhost:5678/api/works/", creerBaliser);
-};*/
-
-//init();
 
 

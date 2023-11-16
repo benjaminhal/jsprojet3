@@ -623,7 +623,7 @@ i.fa-regular.fa-image{
 .image-ajout{
 	height: 200px;
 	position: relative;
-	left: 160px;
+	left: 210px;
     top: 1em;
 }
 
@@ -758,7 +758,7 @@ input.ajoutPhoto {
     height: 100%;
     object-fit: cover;
     position: relative;
-    right: -110px;
+    right: -180px;
 }
 .nonConforme{
 	z-index: 5;

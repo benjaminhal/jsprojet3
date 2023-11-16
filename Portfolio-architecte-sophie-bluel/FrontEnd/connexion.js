@@ -27,6 +27,7 @@ envoyer.addEventListener("click",function(e){
     else{
         console.log("connecté");
         console.log(id);
+        console.log(data)
         localStorage.setItem("token", data.token);
         localStorage.setItem('userId', data.userId);
         window.location.href = "index.html";
