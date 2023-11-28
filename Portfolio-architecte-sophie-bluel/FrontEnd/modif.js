@@ -1,4 +1,8 @@
+let login = document.getElementById("login");
 
+login.addEventListener("click",function(){
+    window.location.href = "connexion.html"
+}); 
 /*AJOUT DES IMAGES */
 const divElement = document.querySelector(".gallery");
 const filtreCategories = document.getElementById("btn-filtre")
@@ -299,23 +303,7 @@ const creerImgModale = (data) => {
     gallery.appendChild(figureElements);
   };
 };
-    
-      /*recuperer la categorie
-      const fetchCategory = async () => {
-        const res = await fetch('http://localhost:5678/api/categories/');
-        const data = await res.json();
-        const choise0 = createElemt("option", " ");
-        selectCategorie.appendChild(choise0);
-        data.forEach((element) => {
-            const name = element.name;
-            const id = element.id;
-            const categorychoisi = createElemt("option", `${name}`);
-            categorychoisi.value = `${name}`;
-            categorychoisi.setAttribute("id", `${id}`);
-            selectCategorie.appendChild(categorychoisi);
-        });
-    };*/
-
+  
     //constante qui permet de créer un élement
     const createElemt = (elem, texte) => {
       const elemCreated = document.createElement(elem);
@@ -465,16 +453,16 @@ const envoyerImage = async (event) => {
       modalContainer2.classList.remove("active");
       modalContainer.classList.remove("active");
   } else if (response.status === 400 && titre.value.trim() == "") {
-    messageErreur("Veuillez remplir le formulaire", "red");
+    messageErreur("Veuillez remplir le formulaire");
 
   } else if (response.status === 400 && formAjout.value == "") {
-    messageErreur("Veuillez remplir le formulaire", "red");
+    messageErreur("Veuillez remplir le formulaire");
 
   } else if (response.status === 400 || response.status === 401 || response.status === 500) {
-    messageErreur("Erreur de l'API", "red");
+    messageErreur("Erreur de l'API");
       resetApresEnvoie();
   } else {
-    messageErreur("Veuillez remplir le formulaire", "red");
+    messageErreur("Veuillez remplir le formulaire");
   }
 };
 
