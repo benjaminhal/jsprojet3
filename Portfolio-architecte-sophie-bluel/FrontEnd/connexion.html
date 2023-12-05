@@ -17,8 +17,8 @@
         <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
         <nav>
             <ul>
-                <li><a href="index.html"></a>projets</li>
-                <li>contact</li>
+                <li id="bouton-projet">projets</li>
+                <li id="bouton-contact">contact</li>
                 <li>login</li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
@@ -28,27 +28,15 @@
         <section id="section-connexion">
             <h3>Log in</h3>
             <form method="post" action="#" id="formulaire">
-                <!---<div class="email-mdp">
-                    <div class="form-colum">--->
                         <label for="email" class="label-email">Email</label>
-                        <input type="email" name="email" id="email" required >
+                        <input type="email" name="email" id="email">
                         <div class="invalidEmail"></div>
-                    <!---</div>
-                    <div class="mdp">--->
                         <label for="mot-de-passe" class="label-mdp"> Mot de passe</label>
-                        <input type="password" name="password" id="password" required>
+                        <input type="password" name="password" id="password">
                         <div class="invalidPassword"></div>
-                        
-                    <!---</div>
-                    <div class="btn-connecter">-->
                         <button type="submit" value="" id="cta">Se connecter</button>
                         <p>Mot de passe oublié</p>
                         <span class="error" aria-live="polite"></span>
-                <!----- </div>
-                    <div class="mdp-oublie">
-                        
-                    </div>
-                </div>--->
             </form>
         </section>
     </main>
