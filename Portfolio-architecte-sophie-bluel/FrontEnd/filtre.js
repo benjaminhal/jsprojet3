@@ -20,7 +20,6 @@ function creerFiltrer(){
 
 creerFiltrer();
 
-
 const btntous = document.getElementById("Tous")
 
 function filtreTous(){
@@ -29,7 +28,7 @@ function filtreTous(){
         for(let figure of figures){
           figure.classList.replace("inactive", "active")
         }
-      });
+    });
 };
 filtreTous();
 

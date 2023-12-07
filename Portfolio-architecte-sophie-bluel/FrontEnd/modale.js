@@ -31,8 +31,7 @@ function afficherImageModale(){
           /*POUR SUPPRIMER UNE IMAGE DE LA MODALE ET DE L'API*/
           fig.addEventListener("click",function(){
             deleteElementById(figure.id);
-
-          })
+          });
           const img = document.createElement("img")
           img.src = image.imageUrl;
           img.alt = image.title;
@@ -40,7 +39,7 @@ function afficherImageModale(){
           figure.appendChild(fig)
           modale.appendChild(figure);
         }
-});
+  });
 };
 afficherImageModale();
 

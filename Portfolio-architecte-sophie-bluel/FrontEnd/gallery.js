@@ -1,12 +1,12 @@
 //Redirection au click sur les boutons du header
 let login = document.getElementById("login");
 
-function log(){
+function connexion(){
   login.addEventListener("click",function(){
     window.location.href = "connexion.html"
   }); 
 };
-log();
+connexion();
 
 
 let btnContact = document.getElementById("btn-contact");
@@ -59,7 +59,6 @@ function afficherImage(){
 
     });
 }
-
 afficherImage();
 
 /*FONCTION ADMIN*/
@@ -85,17 +84,17 @@ const token = localStorage.getItem("token");
 //activer le mode admin
 if (token != null) {
     adminMode();
-  } 
+}; 
 
   //DECONEXion
   const loginButton = document.getElementById("login");
   const logoutButton = document.getElementById("logout") 
 
 function logout(){
-  logoutButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    removeToken();
-    window.location.assign("index.html");
+   logoutButton.addEventListener("click", (event) => {
+   event.preventDefault();
+   removeToken();
+   window.location.assign("index.html");
   });
 };
 
@@ -103,9 +102,9 @@ function logout(){
   
   
   // Supprime le token du localStorage
-  function removeToken() {
-    localStorage.removeItem("token");
-  };
+function removeToken() {
+  localStorage.removeItem("token");
+};
 
 /*SUPPRIMER DES PROJETS*/
 const supprimer = document.querySelectorAll(".fa-trash-can");
@@ -113,24 +112,19 @@ const imageSuppr = document.querySelectorAll(".image-modal figure");
 const figGallery = document.querySelectorAll(".gallery figure")
 const imageS = document.querySelectorAll(".image-modal img");
 
-    function deleteElementById(id) {
-            const token = localStorage.getItem("token");
-            fetch(`http://localhost:5678/api/works/${id.replace('modale', '')}`, {
-                method: "DELETE",
-                headers: {
-                Authorization: `Bearer ${token}`,
-                },
-            });
-
-                const elementSupprime = document.getElementById("gallerie-" + id);
-                const elementSupprimeModal = document.getElementById(id);
-                elementSupprime.parentNode.removeChild(elementSupprime);
-                elementSupprimeModal.parentNode.removeChild(elementSupprimeModal);
-              
-      };
-
-
-      
+function deleteElementById(id) {
+  const token = localStorage.getItem("token");
+  fetch(`http://localhost:5678/api/works/${id.replace('modale', '')}`, {
+      method: "DELETE",
+      headers: {
+      Authorization: `Bearer ${token}`,
+      },
+      });
+      const elementSupprime = document.getElementById("gallerie-" + id);
+      const elementSupprimeModal = document.getElementById(id);
+      elementSupprime.parentNode.removeChild(elementSupprime);
+      elementSupprimeModal.parentNode.removeChild(elementSupprimeModal);        
+};
 /*AJOUT DES IMAGES*/
 
 //creation de la balise figure et les balises qu'elle contient
