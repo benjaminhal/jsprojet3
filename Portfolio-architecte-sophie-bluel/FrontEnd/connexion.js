@@ -9,7 +9,6 @@ function connection(){
       email : inputEmail.value,
       password : inputMdp.value
     }
-    console.log(id)
     e.preventDefault();
     fetch("http://localhost:5678/api/users/login", {
     method: "POST",

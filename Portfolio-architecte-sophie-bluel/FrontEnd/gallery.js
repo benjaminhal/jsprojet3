@@ -4,7 +4,7 @@ let login = document.getElementById("login");
 function log(){
   login.addEventListener("click",function(){
     window.location.href = "connexion.html"
-}); 
+  }); 
 };
 log();
 
@@ -21,13 +21,13 @@ contact();
 
 let btnProjet = document.getElementById("btn-projet");
 
-function galler(){
+function gallerie(){
   btnProjet.addEventListener("click",function(){
     window.location.href = "#encre-gallery"
   });
 };
 
-galler();
+gallerie();
 
 
 /*AJOUT DES IMAGES */
@@ -62,8 +62,6 @@ function afficherImage(){
 
 afficherImage();
 
-
-
 /*FONCTION ADMIN*/
 
 //page et fonctionnalités admin
@@ -93,13 +91,13 @@ if (token != null) {
   const loginButton = document.getElementById("login");
   const logoutButton = document.getElementById("logout") 
 
-  function logout(){
-    logoutButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      removeToken();
-      window.location.assign("index.html");
-    });
-  };
+function logout(){
+  logoutButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    removeToken();
+    window.location.assign("index.html");
+  });
+};
 
   logout();
   
@@ -135,31 +133,31 @@ const imageS = document.querySelectorAll(".image-modal img");
       
 /*AJOUT DES IMAGES*/
 
-      //creation de la balise figure et les balises qu'elle contient
-      const creerBaliser = (data) => {
-        const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = "";
-        for (let i = 0; i < data.length; i++) {
-            const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
-            const figureElements = document.createElement('figure');
-            figureElements.setAttribute("data-name", id);
-            figureElements.id = "gallerie-modale"+id;
-            figureElements.classList = "active";
-            figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><figcaption>${titre}</figcaption>`;
-            gallery.appendChild(figureElements);
+//creation de la balise figure et les balises qu'elle contient
+const creerBaliser = (data) => {
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+  for (let i = 0; i < data.length; i++) {
+    const{ id:id, imageUrl:imageUrl, title:titre} = data[i];
+    const figureElements = document.createElement('figure');
+    figureElements.setAttribute("data-name", id);
+    figureElements.id = "gallerie-modale"+id;
+    figureElements.classList = "active";
+    figureElements.innerHTML = `<img src="${imageUrl}" alt="${titre}"><figcaption>${titre}</figcaption>`;
+    gallery.appendChild(figureElements);
             
-        }
-      };
+  }
+};
 
-      const fetchData = async (url, callback) => {
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            callback(data);
-        } catch (Error) {
-            console.error(error);
-        }
-      };
+const fetchData = async (url, callback) => {
+  try {
+      const res = await fetch(url);
+      const data = await res.json();
+      callback(data);
+  } catch (Error) {
+      console.error(error);
+  }
+};
   
 //récupére l'id de la catégorie choisi
 const formModal2 = document.getElementById("select-categorie")

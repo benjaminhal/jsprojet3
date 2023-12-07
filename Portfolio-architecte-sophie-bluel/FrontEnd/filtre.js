@@ -16,7 +16,7 @@ function creerFiltrer(){
         }; 
         }
     );
-}
+};
 
 creerFiltrer();
 
@@ -28,31 +28,18 @@ function filtreTous(){
         let figures = document.querySelectorAll(".gallery figure");
         for(let figure of figures){
           figure.classList.replace("inactive", "active")
-      
         }
-        
-      
       });
 };
 filtreTous();
 
 function filtrer(id){
       choix = id;
-  
       let figures = document.querySelectorAll(".gallery figure");
-      
-      
-      
       for(let figure of figures){
           figure.classList.replace("active","inactive");
           if(choix == figure.dataset.name){
-              figure.classList.replace("inactive", "active");
-              
+              figure.classList.replace("inactive", "active"); 
           }
-          
-  
       };
 };
-
-
-let btnFiltre =  document.querySelectorAll("#btn-filtre button");

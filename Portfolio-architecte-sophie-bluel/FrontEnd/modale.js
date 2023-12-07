@@ -6,7 +6,6 @@ const modalContainer2 = document.querySelector(".modal-container2");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
 const modale = document.querySelector(".image-modal")
 
-
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 //pour affciher  la modale
@@ -64,10 +63,6 @@ function optionModale(){
     });
 };
 optionModale();
-    
-
-
-
 
 const modifier = document.querySelector(".ajoutPhoto")
 
@@ -90,7 +85,6 @@ function fermerModales(){
   });
 };
 fermerModales();
-
 
 const retour = document.querySelector(".retour");
 
@@ -124,7 +118,7 @@ const creerImgModale = (data) => {
     };
   };
 
-  const btnAjoutImage = document.querySelector('.btn-ajout');
+const btnAjoutImage = document.querySelector('.btn-ajout');
 let inputImage = document.querySelector('.input-ajout');
 const formAjout = document.getElementById('select-categorie');
 const imageinfo = document.getElementById('image-info');
@@ -156,12 +150,13 @@ const partAjout = document.querySelector('.ajout');
     document.querySelector(".fa-regular").style.display = "block";
     document.querySelector(".fa-regular").style.position = "relative";
     document.querySelector(".fa-regular").style.top = "-0.6em";
+    document.querySelector(".fa-regular").style.left = "15px";
     document.querySelector(".fa-image").style.display = "block";
     document.querySelector(".fa-image").style.position = "relative";
     document.querySelector(".fa-image").style.top = "-0.6em";
+    document.querySelector(".fa-image").style.left = "15px";
     document.querySelector('.btn-ajout').style.display = "block";
     document.querySelector('.btn-ajout').style.top = "-6.7em";
-    //document.querySelector('.ajout').style.padding = "40px 0 40px";
     formAjout.value = "";
     inputImage.value = "";
     selectCategorieIdDuSelect = "";
@@ -203,7 +198,6 @@ const partAjout = document.querySelector('.ajout');
   };
   verification();
 
-
   function resetApresEnvoie() {
     Data = "";
     reset();
@@ -220,16 +214,15 @@ const listenerValider = (e) => {
 
 btn.addEventListener('click', listenerValider);
 
-
-  function changerBoutton() {
-    if (imageWork == "ok" && titre.value !== "" && formAjout.value !== "") {
-        btn.style.backgroundColor = "#1D6154";
-        btn.removeEventListener('click', listenerValider);
-        btn.addEventListener('click', envoyerImage);
-    } else {
-        btn.style.backgroundColor = "#A7A7A7";
-    }
-  };
+function changerBoutton() {
+  if (imageWork == "ok" && titre.value !== "" && formAjout.value !== "") {
+      btn.style.backgroundColor = "#1D6154";
+      btn.removeEventListener('click', listenerValider);
+      btn.addEventListener('click', envoyerImage);
+  } else {
+      btn.style.backgroundColor = "#A7A7A7";
+  }
+};
   
   titre.addEventListener('change', changerBoutton);
   formAjout.addEventListener('change', changerBoutton);
